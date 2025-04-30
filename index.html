@@ -3,240 +3,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OB Zelda - Oneblock Hyping</title>
+    <title>OB Zelda - OneBlock Hyping</title>
+    <link rel="icon" href="https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/Logo_discord_uj0p2v.png">
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #f1c40f;
+            --text-color: #ecf0f1;
+            --dark-text: #2c3e50;
+            --bg-color: #1a1a1a;
+            --card-bg: rgba(44, 62, 80, 0.8);
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Minecraft', Arial, sans-serif;
+            font-family: 'Montserrat', Arial, sans-serif;
         }
-
-        @font-face {
-            font-family: 'Minecraft';
-            src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/MinecraftRegular.ttf');
-        }
-
+        
         body {
             background-image: url('https://res.cloudinary.com/dor9octmp/image/upload/v1744971567/Capture_d_e%CC%81cran_2025-04-18_a%CC%80_11.27.22_fncjkw.png');
             background-size: cover;
+            background-position: center;
             background-attachment: fixed;
-            color: white;
+            color: var(--text-color);
             line-height: 1.6;
         }
-
+        
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.7);
+            min-height: 100vh;
+        }
+        
+        header {
+            background-image: url('https://res.cloudinary.com/dor9octmp/image/upload/v1746016568/minecraft-zelda-botw-build_wklzg5.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            position: relative;
+        }
+        
+        .header-overlay {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8));
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin: 20px 0;
+            color: var(--accent-color);
+            text-align: center;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin: 15px 0;
+            color: var(--secondary-color);
+        }
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
-
-        header {
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px 0;
-            text-align: center;
-            border-bottom: 5px solid #32CD32;
-        }
-
-        .banner {
-            width: 100%;
-            max-height: 250px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .logo {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 5px solid #32CD32;
-            margin-top: -75px;
-            margin-bottom: 20px;
-            background-color: #111;
-        }
-
-        .header-title {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            color: #32CD32;
-            text-shadow: 2px 2px 4px black;
-        }
-
-        .header-subtitle {
-            font-size: 1.5rem;
-            color: #CCC;
-            margin-bottom: 20px;
-        }
-
-        .discord-link {
-            display: inline-block;
-            background-color: #7289DA;
-            color: white;
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-            margin-bottom: 20px;
-        }
-
-        .discord-link:hover {
-            background-color: #5B73C7;
-        }
-
-        .main-content {
-            background-color: rgba(0, 0, 0, 0.7);
+        
+        .section {
+            background-color: var(--card-bg);
             padding: 30px;
+            margin: 30px 0;
             border-radius: 10px;
-            margin-top: 30px;
-            border: 2px solid #32CD32;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: #32CD32;
-            text-align: center;
-            border-bottom: 2px solid #32CD32;
-            padding-bottom: 10px;
-        }
-
+        
         .members {
             display: flex;
-            justify-content: center;
             flex-wrap: wrap;
+            justify-content: center;
             gap: 30px;
-            margin-top: 30px;
+            margin: 20px 0;
         }
-
+        
         .member-card {
-            background-color: rgba(30, 30, 30, 0.8);
+            background-color: rgba(52, 152, 219, 0.2);
             border-radius: 10px;
             padding: 20px;
-            width: 300px;
+            width: 250px;
             text-align: center;
-            border: 2px solid #32CD32;
-            transition: transform 0.3s;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-
+        
         .member-card:hover {
             transform: translateY(-5px);
         }
-
-        .member-avatar {
-            width: 150px;
-            height: 150px;
+        
+        .member-img {
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            border: 3px solid #32CD32;
-            margin-bottom: 15px;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+            margin: 0 auto 15px;
         }
-
-        .member-name {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-            color: #32CD32;
-        }
-
-        .member-ign {
-            font-style: italic;
-            color: #CCC;
-            margin-bottom: 15px;
-        }
-
-        footer {
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            text-align: center;
-            margin-top: 50px;
-            border-top: 5px solid #32CD32;
-        }
-
-        .footer-text {
-            color: #CCC;
-        }
-
-        .minecraft-button {
+        
+        .role {
             display: inline-block;
-            background-color: #5A5A5A;
-            border: 2px solid #2A2A2A;
-            padding: 8px 16px;
-            color: white;
-            text-decoration: none;
-            margin: 10px;
+            padding: 5px 10px;
+            background-color: var(--accent-color);
+            color: var(--dark-text);
+            border-radius: 20px;
+            font-size: 0.8rem;
             font-weight: bold;
-            transition: all 0.2s;
+            margin-top: 10px;
         }
-
-        .minecraft-button:hover {
-            background-color: #32CD32;
-            transform: scale(1.05);
+        
+        .discord-btn {
+            display: inline-block;
+            background-color: #7289DA;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
         }
-
-        /* Responsive adjustments */
+        
+        .discord-btn:hover {
+            background-color: #5e73bc;
+        }
+        
+        .image-showcase {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .showcase-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .showcase-img:hover {
+            transform: scale(1.02);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--primary-color);
+            margin-top: 30px;
+        }
+        
         @media (max-width: 768px) {
-            .header-title {
+            h1 {
                 font-size: 2rem;
             }
             
-            .header-subtitle {
-                font-size: 1.2rem;
+            h2 {
+                font-size: 1.5rem;
             }
             
-            .member-card {
-                width: 100%;
+            .section {
+                padding: 20px;
+            }
+            
+            .members {
+                flex-direction: column;
+                align-items: center;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1744972638/Capture_d_e%CC%81cran_2025-04-05_a%CC%80_10.24.06_yv2agt.png" alt="OB Zelda Banner" class="banner">
-            <div style="text-align: center;">
-                <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/Logo_discord_uj0p2v.png" alt="Hyping Server Logo" class="logo">
+    <div class="overlay">
+        <header>
+            <div class="header-overlay">
+                <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/Logo_discord_uj0p2v.png" alt="Logo Hyping" class="logo">
+                <h1>OB Zelda</h1>
+                <p>Serveur OneBlock Hyping</p>
             </div>
-            <h1 class="header-title">OB Zelda</h1>
-            <h2 class="header-subtitle">Oneblock Hyping</h2>
-            <a href="https://discord.gg/5zZVArcSRu" target="_blank" class="discord-link">Rejoignez notre Discord !</a>
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="main-content">
-            <h2 class="section-title">À Propos</h2>
-            <p>Bienvenue sur le site de l'OB Zelda du serveur Minecraft Oneblock Hyping ! Nous sommes un groupe de joueurs passionnés qui travaillent ensemble pour créer et développer notre île. OB signifie "OneBlock" et représente notre groupe composé de maximum 9 joueurs partageant la même île.</p>
-            
-            <h2 class="section-title">Nos Membres</h2>
-            <div class="members">
-                <div class="member-card">
-                    <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1746015869/Icone_Startoto_qnzf3t.png" alt="Zelda_Startoto" class="member-avatar">
-                    <h3 class="member-name">Zelda_Startoto</h3>
-                    <p class="member-ign">Startoto1007</p>
-                    <p>Membre fondateur de l'OB Zelda, contribue activement au développement de notre île.</p>
+        </header>
+        
+        <div class="container">
+            <section class="section">
+                <h2>Notre équipe</h2>
+                <div class="members">
+                    <div class="member-card">
+                        <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1746015869/Icone_Startoto_qnzf3t.png" alt="Zelda_Startoto" class="member-img">
+                        <h3>Zelda_Startoto</h3>
+                        <p>(Startoto1007)</p>
+                        <span class="role">Chef Fondateur</span>
+                    </div>
+                    
+                    <div class="member-card">
+                        <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1746015869/Icone_Louis_teei0t.png" alt="Zelda_Louis" class="member-img">
+                        <h3>Zelda_Louis</h3>
+                        <p>(LouisK92556)</p>
+                        <span class="role">Officier</span>
+                    </div>
                 </div>
                 
-                <div class="member-card">
-                    <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1746015869/Icone_Louis_teei0t.png" alt="Zelda_Louis" class="member-avatar">
-                    <h3 class="member-name">Zelda_Louis</h3>
-                    <p class="member-ign">LouisK92556</p>
-                    <p>Membre fondateur de l'OB Zelda, apporte son expertise et sa créativité à notre communauté.</p>
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="https://discord.gg/5zZVArcSRu" class="discord-btn" target="_blank">
+                        Rejoindre notre Discord
+                    </a>
                 </div>
-            </div>
+            </section>
             
-            <h2 class="section-title">Rejoignez-nous</h2>
-            <p style="text-align: center; margin-bottom: 20px;">Envie de découvrir notre univers Minecraft et peut-être rejoindre notre OB ? N'hésitez pas à nous contacter sur Discord !</p>
-            <div style="text-align: center;">
-                <a href="https://discord.gg/5zZVArcSRu" target="_blank" class="minecraft-button">Discord</a>
-            </div>
+            <section class="section">
+                <h2>Notre Histoire</h2>
+                <p>
+                    L'OB s'appelait auparavant "1007" et est actuellement en pleine reconversion. D'énormes travaux sont en cours pour transformer notre île et améliorer notre infrastructure. Nous avons de grandes ambitions pour notre avenir sur le serveur OneBlock Hyping !
+                </p>
+            </section>
+            
+            <section class="section">
+                <h2>Notre Bot Discord</h2>
+                <p>
+                    Nous avons développé notre propre bot Discord "maison" qui permet notamment de donner les prérequis pour les différents prestiges du serveur. Cet outil est indispensable pour tous les membres de notre OB et nous aide à progresser efficacement.
+                </p>
+                <div class="image-showcase">
+                    <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1746016795/Capture_d_e%CC%81cran_2025-04-30_a%CC%80_14.39.44_lqlibr.png" alt="Bot Discord" class="showcase-img" style="max-width: 600px;">
+                </div>
+            </section>
+            
+            <section class="section">
+                <h2>Notre PlayerWarp en Construction</h2>
+                <p>
+                    Nous sommes actuellement en pleine création de notre PlayerWarp (PW) qui sera bientôt accessible à tous les joueurs du serveur. Ce projet ambitieux est en cours de développement et promet d'être impressionnant une fois terminé !
+                </p>
+                <div class="image-showcase">
+                    <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1746016870/Capture_d_e%CC%81cran_2025-03-18_a%CC%80_17.22.12_omtovn.png" alt="PlayerWarp en construction" class="showcase-img" style="max-width: 600px;">
+                </div>
+            </section>
+            
+            <section class="section">
+                <h2>Les Massacres</h2>
+                <p>
+                    Notre OB est très active lors des événements "Massacres" organisés sur le serveur. Nous figurons régulièrement dans le top 3 des meilleurs participants, démontrant ainsi notre efficacité et notre esprit d'équipe.
+                </p>
+                <div class="image-showcase">
+                    <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1746017149/Capture_d_e%CC%81cran_2025-04-20_a%CC%80_16.10.13_uzuep7.png" alt="Top 3 Massacre" class="showcase-img" style="max-width: 600px;">
+                </div>
+            </section>
         </div>
+        
+        <footer>
+            <p>&copy; 2025 OB Zelda - OneBlock Hyping. Tous droits réservés.</p>
+        </footer>
     </div>
-
-    <footer>
-        <div class="container">
-            <p class="footer-text">© 2025 OB Zelda</p>
-            <p class="footer-text">Non affilé à Mojang Studios ni Hyping studio.</p>
-        </div>
-    </footer>
 </body>
 </html>
