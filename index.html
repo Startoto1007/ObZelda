@@ -7,13 +7,15 @@
     <link rel="icon" href="https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/Logo_discord_uj0p2v.png">
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #f1c40f;
-            --text-color: #ecf0f1;
-            --dark-text: #2c3e50;
-            --bg-color: #1a1a1a;
-            --card-bg: rgba(44, 62, 80, 0.8);
+            --primary-color: #1e5631;
+            --secondary-color: #4caf50;
+            --accent-color: #fdcb6e;
+            --light-green: #8bc34a;
+            --text-color: #ffffff;
+            --dark-text: #333333;
+            --bg-color: #0a3410;
+            --card-bg: rgba(30, 86, 49, 0.85);
+            --card-hover: rgba(76, 175, 80, 0.3);
         }
         
         * {
@@ -33,7 +35,7 @@
         }
         
         .overlay {
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(10, 52, 16, 0.8);
             min-height: 100vh;
         }
         
@@ -46,7 +48,7 @@
         }
         
         .header-overlay {
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8));
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(10, 52, 16, 0.8));
             position: absolute;
             top: 0;
             left: 0;
@@ -66,6 +68,7 @@
             object-fit: cover;
             border: 3px solid var(--accent-color);
             margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(253, 203, 110, 0.7);
         }
         
         h1 {
@@ -81,12 +84,25 @@
             color: var(--accent-color);
             text-align: center;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--light-green);
         }
         
         h3 {
             font-size: 1.5rem;
             margin: 15px 0;
-            color: var(--secondary-color);
+            color: var(--light-green);
         }
         
         .container {
@@ -101,6 +117,7 @@
             margin: 30px 0;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid var(--light-green);
         }
         
         .members {
@@ -112,17 +129,18 @@
         }
         
         .member-card {
-            background-color: rgba(52, 152, 219, 0.2);
+            background-color: var(--card-hover);
             border-radius: 10px;
             padding: 20px;
             width: 250px;
             text-align: center;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
         .member-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(139, 195, 74, 0.3);
         }
         
         .member-img {
@@ -136,29 +154,34 @@
         
         .role {
             display: inline-block;
-            padding: 5px 10px;
+            padding: 5px 15px;
             background-color: var(--accent-color);
             color: var(--dark-text);
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: bold;
             margin-top: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
         
         .discord-btn {
             display: inline-block;
             background-color: #7289DA;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 5px;
             text-decoration: none;
             margin-top: 20px;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
             font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
         }
         
         .discord-btn:hover {
             background-color: #5e73bc;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
         }
         
         .image-showcase {
@@ -170,11 +193,12 @@
         }
         
         .showcase-img {
-            max-width: 100%;
+            width: 350px;
             height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
+            border: 2px solid var(--accent-color);
         }
         
         .showcase-img:hover {
@@ -186,6 +210,18 @@
             padding: 20px;
             background-color: var(--primary-color);
             margin-top: 30px;
+            border-top: 3px solid var(--light-green);
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        .triforce {
+            display: inline-block;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin: 0 5px;
         }
         
         @media (max-width: 768px) {
@@ -205,6 +241,11 @@
                 flex-direction: column;
                 align-items: center;
             }
+            
+            .showcase-img {
+                width: 100%;
+                max-width: 300px;
+            }
         }
     </style>
 </head>
@@ -214,7 +255,7 @@
             <div class="header-overlay">
                 <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/Logo_discord_uj0p2v.png" alt="Logo Hyping" class="logo">
                 <h1>OB Zelda</h1>
-                <p>Serveur OneBlock Hyping</p>
+                <p><span class="triforce">▲</span> Serveur OneBlock Hyping <span class="triforce">▲</span></p>
             </div>
         </header>
         
@@ -257,7 +298,7 @@
                     Nous avons développé notre propre bot Discord "maison" qui permet notamment de donner les prérequis pour les différents prestiges du serveur. Cet outil est indispensable pour tous les membres de notre OB et nous aide à progresser efficacement.
                 </p>
                 <div class="image-showcase">
-                    <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1746016795/Capture_d_e%CC%81cran_2025-04-30_a%CC%80_14.39.44_lqlibr.png" alt="Bot Discord" class="showcase-img" style="max-width: 600px;">
+                    <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1746016795/Capture_d_e%CC%81cran_2025-04-30_a%CC%80_14.39.44_lqlibr.png" alt="Bot Discord" class="showcase-img">
                 </div>
             </section>
             
@@ -267,7 +308,7 @@
                     Nous sommes actuellement en pleine création de notre PlayerWarp (PW) qui sera bientôt accessible à tous les joueurs du serveur. Ce projet ambitieux est en cours de développement et promet d'être impressionnant une fois terminé !
                 </p>
                 <div class="image-showcase">
-                    <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1746016870/Capture_d_e%CC%81cran_2025-03-18_a%CC%80_17.22.12_omtovn.png" alt="PlayerWarp en construction" class="showcase-img" style="max-width: 600px;">
+                    <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1746016870/Capture_d_e%CC%81cran_2025-03-18_a%CC%80_17.22.12_omtovn.png" alt="PlayerWarp en construction" class="showcase-img">
                 </div>
             </section>
             
@@ -277,13 +318,13 @@
                     Notre OB est très active lors des événements "Massacres" organisés sur le serveur. Nous figurons régulièrement dans le top 3 des meilleurs participants, démontrant ainsi notre efficacité et notre esprit d'équipe.
                 </p>
                 <div class="image-showcase">
-                    <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1746017149/Capture_d_e%CC%81cran_2025-04-20_a%CC%80_16.10.13_uzuep7.png" alt="Top 3 Massacre" class="showcase-img" style="max-width: 600px;">
+                    <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1746017149/Capture_d_e%CC%81cran_2025-04-20_a%CC%80_16.10.13_uzuep7.png" alt="Top 3 Massacre" class="showcase-img">
                 </div>
             </section>
         </div>
         
         <footer>
-            <p>&copy; 2025 OB Zelda - OneBlock Hyping. Tous droits réservés.</p>
+            <p>&copy; 2025 OB Zelda - OneBlock Hyping <span class="triforce">▲</span> Tous droits réservés.</p>
         </footer>
     </div>
 </body>
