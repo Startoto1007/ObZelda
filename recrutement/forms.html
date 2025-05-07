@@ -278,7 +278,7 @@
                     </select>
 
                     <label for="ancien-ob">6. As-tu déjà été dans une OB (ou équipe) avant ?</label>
-                    <textarea id="ancien-ob" name="ancien-ob" rows="2" placeholder="Si oui, laquelle ? Qu’en as-tu pensé ?"></textarea>
+                    <textarea id="ancien-ob" name="ancien-ob" rows="2" placeholder="Si oui, laquelle ? Qu'en as-tu pensé ?"></textarea>
 
                     <label for="specialite">7. As-tu un domaine de prédilection (préférence) sur Hyping ?</label>
                     <input type="text" id="specialite" name="specialite" required placeholder="Construction, Farm, Minage, Pêche, Dailys, etc.">
@@ -292,6 +292,7 @@
                     <button class="discord-btn" type="submit">Envoyer ma candidature</button>
                 </form>
                 
+                <div id="status-message" style="margin-top: 20px; text-align: center; display: none;"></div>
             </section>
         </div>
 
@@ -303,27 +304,67 @@
     <script>
         document.getElementById('recruitment-form').addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            // Affiche un message de chargement
+            const statusMessage = document.getElementById('status-message');
+            statusMessage.style.display = 'block';
+            statusMessage.innerHTML = '<div style="color: var(--accent-color); font-weight: bold;">Envoi en cours...</div>';
 
             const webhookURL = 'https://discord.com/api/webhooks/1369664433839673475/GuKtZ279BAgKo0PUU_bSzJKFYUTvxCsBUjDhvbKEtPplOk20RDn479uj6OMTd2g2g1jH';
             const form = e.target;
 
+            // Création des données à envoyer
             const data = {
-                content: null,
                 embeds: [{
                     title: "📥 Nouvelle candidature OB Zelda",
-                    color: 0x3b662d,
-                    description:
-                        `**🎮 Pseudo Minecraft :** ${form["pseudo-mc"].value}\n` +
-                        `**💬 Pseudo Discord :** ${form["pseudo-discord"].value}\n\n` +
-                        `**1️⃣ Connais-tu bien le serveur Hyping ?**\n${form.hyping.value}\n\n` +
-                        `**2️⃣ As-tu déjà joué à un ou plusieurs jeux Zelda ?**\n${form.zelda.value || "Non précisé"}\n\n` +
-                        `**3️⃣ Quel style de joueur es-tu ?**\n${form.style.value}\n\n` +
-                        `**4️⃣ Comment te décrirais-tu ?**\n${form.description.value}\n\n` +
-                        `**5️⃣ Suis-tu ou proposes-tu des idées ?**\n${form.initiative.value}\n\n` +
-                        `**6️⃣ As-tu déjà été dans une OB ?**\n${form["ancien-ob"].value || "Non précisé"}\n\n` +
-                        `**7️⃣ Domaine de prédilection :**\n${form.specialite.value}\n\n` +
-                        `**8️⃣ Que recherches-tu ?**\n${form.attentes.value}\n\n` +
-                        `**9️⃣ Anecdote :**\n${form.anecdote.value || "Non précisé"}`,
+                    color: 3899949, // Convertir 0x3b662d en décimal
+                    fields: [
+                        {
+                            name: "🎮 Pseudo Minecraft",
+                            value: form["pseudo-mc"].value,
+                            inline: true
+                        },
+                        {
+                            name: "💬 Pseudo Discord",
+                            value: form["pseudo-discord"].value,
+                            inline: true
+                        },
+                        {
+                            name: "1️⃣ Connaissance du serveur Hyping",
+                            value: form.hyping.value + "/10"
+                        },
+                        {
+                            name: "2️⃣ Expérience avec les jeux Zelda",
+                            value: form.zelda.value || "Non précisé"
+                        },
+                        {
+                            name: "3️⃣ Style de joueur",
+                            value: form.style.value
+                        },
+                        {
+                            name: "4️⃣ Auto-description",
+                            value: form.description.value
+                        },
+                        {
+                            name: "5️⃣ Initiative",
+                            value: form.initiative.value
+                        },
+                        {
+                            name: "6️⃣ Expérience en OB",
+                            value: form["ancien-ob"].value || "Non précisé"
+                        },
+                        {
+                            name: "7️⃣ Domaine de prédilection",
+                            value: form.specialite.value
+                        },
+                        {
+                            name: "8️⃣ Attentes",
+                            value: form.attentes.value
+                        },
+                        {
+                            name: "9️⃣ Anecdote",
+                            value: form.anecdote.value || "Non précisé"
+                        }
                     ],
                     footer: {
                         text: "Candidature reçue automatiquement via le site OB Zelda"
@@ -333,17 +374,37 @@
             };
 
             try {
-                await fetch(webhookURL, {
+                const response = await fetch(webhookURL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify(data)
                 });
-
-                alert("✅ Ta candidature a bien été envoyée !");
-                form.reset();
+                
+                if (response.ok) {
+                    // Affiche un message de succès
+                    statusMessage.innerHTML = '<div style="color: #4caf50; font-weight: bold;">✅ Ta candidature a bien été envoyée !</div>';
+                    form.reset();
+                    
+                    // Fait défiler jusqu'au message de statut
+                    statusMessage.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Cache le message après 5 secondes
+                    setTimeout(() => {
+                        statusMessage.style.display = 'none';
+                    }, 5000);
+                } else {
+                    throw new Error(`Erreur HTTP: ${response.status}`);
+                }
             } catch (err) {
-                alert("❌ Une erreur est survenue. Merci de réessayer.");
-                console.error(err);
+                console.error('Erreur lors de l\'envoi:', err);
+                statusMessage.innerHTML = '<div style="color: #f44336; font-weight: bold;">❌ Une erreur est survenue. Merci de réessayer.</div>';
+                
+                // Cache le message d'erreur après 5 secondes
+                setTimeout(() => {
+                    statusMessage.style.display = 'none';
+                }, 5000);
             }
         });
     </script>
