@@ -2,115 +2,272 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Rejoindre l’OB Zelda</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejoindre l'OB Zelda - OneBlock Hyping</title>
+    <link rel="icon" href="https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/Logo_discord_uj0p2v.png">
+    
+    <!-- Meta tags pour les aperçus sur Discord (Open Graph) -->
+    <meta property="og:title" content="Rejoindre l'OB Zelda - OneBlock Hyping">
+    <meta property="og:description" content="Formulaire de recrutement pour l'OB Zelda">
+    <meta property="og:image" content="https://res.cloudinary.com/dor9octmp/image/upload/v1746016568/minecraft-zelda-botw-build_wklzg5.jpg">
+    <meta property="og:url" content="https://startoto1007.github.io/ObZelda/recrutement/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="OB Zelda">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    <!-- Meta tags pour Apple -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="OB Zelda - Recrutement">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
-
-        body {
+        :root {
+            --primary-color: #1e5631;
+            --secondary-color: #4caf50;
+            --accent-color: #fdcb6e;
+            --light-green: #8bc34a;
+            --text-color: #ffffff;
+            --dark-text: #333333;
+            --bg-color: #0a3410;
+            --card-bg: rgba(30, 86, 49, 0.85);
+            --card-hover: rgba(76, 175, 80, 0.3);
+            --discord-color: #7289DA;
+        }
+        
+        * {
             margin: 0;
-            font-family: 'Orbitron', sans-serif;
-            background: url('https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/fond3_h9w1xt.png') no-repeat center center fixed;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        
+        body {
+            background-image: url('https://res.cloudinary.com/dor9octmp/image/upload/v1744971567/Capture_d_e%CC%81cran_2025-04-18_a%CC%80_11.27.22_fncjkw.png');
             background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-color);
+            line-height: 1.6;
         }
-
+        
         .overlay {
-            background-color: rgba(0, 0, 0, 0.75);
+            background-color: rgba(10, 52, 16, 0.8);
             min-height: 100vh;
-            padding: 30px;
-            color: #fff;
         }
-
+        
         header {
-            text-align: center;
-            margin-bottom: 40px;
+            background-image: url('https://res.cloudinary.com/dor9octmp/image/upload/v1746016568/minecraft-zelda-botw-build_wklzg5.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 250px;
+            position: relative;
         }
-
+        
+        .header-overlay {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(10, 52, 16, 0.8));
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
         .logo {
+            width: 80px;
             height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+            margin-bottom: 15px;
+            box-shadow: 0 0 15px rgba(253, 203, 110, 0.7);
         }
-
+        
         h1 {
-            font-size: 36px;
-            margin: 10px 0;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
-
+        
+        .triforce {
+            display: inline-block;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin: 0 5px;
+        }
+        
         .container {
-            max-width: 700px;
-            margin: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .section {
+            background-color: var(--card-bg);
             padding: 30px;
-            box-shadow: 0 0 10px #000;
+            margin: 30px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid var(--light-green);
         }
-
-        .section h2 {
+        
+        h2 {
+            font-size: 2rem;
+            margin: 20px 0;
+            color: var(--accent-color);
             text-align: center;
-            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            position: relative;
+            padding-bottom: 15px;
         }
-
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--light-green);
+        }
+        
         label {
             display: block;
             margin-top: 20px;
             font-weight: bold;
+            color: var(--light-green);
         }
-
+        
         input[type="text"],
         input[type="number"],
         textarea,
         select {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-top: 8px;
-            border-radius: 10px;
-            border: none;
+            border-radius: 8px;
+            border: 2px solid var(--primary-color);
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--dark-text);
             font-family: inherit;
+            transition: all 0.3s ease;
         }
-
+        
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 8px rgba(253, 203, 110, 0.5);
+            outline: none;
+        }
+        
         button.discord-btn {
-            background-color: #7289da;
+            background-color: var(--discord-color);
             color: white;
-            padding: 12px 20px;
-            margin-top: 25px;
+            padding: 12px 24px;
+            margin-top: 30px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             width: 100%;
             font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
+        
         button.discord-btn:hover {
-            background-color: #5b6eae;
+            background-color: #5e73bc;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
         }
-
+        
+        .home-link {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .home-link:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+        
         footer {
             text-align: center;
-            margin-top: 40px;
-            font-size: 14px;
+            padding: 20px;
+            background-color: var(--primary-color);
+            margin-top: 30px;
+            border-top: 3px solid var(--light-green);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            header {
+                height: 200px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="overlay">
         <header>
-            <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/Logo_discord_uj0p2v.png" alt="Logo OB Zelda" class="logo">
-            <h1>Rejoindre l’OB Zelda</h1>
+            <div class="header-overlay">
+                <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/Logo_discord_uj0p2v.png" alt="Logo OB Zelda" class="logo">
+                <h1>Rejoindre l'OB Zelda</h1>
+                <p><span class="triforce">▲</span> Serveur OneBlock Hyping <span class="triforce">▲</span></p>
+            </div>
         </header>
 
         <div class="container">
             <section class="section">
                 <h2>Formulaire de recrutement</h2>
                 <form id="recruitment-form">
+                    <label for="pseudo-mc">🎮 Pseudo Minecraft</label>
+                    <input type="text" id="pseudo-mc" name="pseudo-mc" required placeholder="Ton pseudo sur le serveur Hyping">
+
+                    <label for="pseudo-discord">💬 Pseudo Discord</label>
+                    <input type="text" id="pseudo-discord" name="pseudo-discord" required placeholder="Ton pseudo Discord avec le tag">
+
                     <label for="hyping">1. Connais-tu bien le serveur Hyping ?</label>
-                    <input type="number" id="hyping" name="hyping" min="1" max="10" required>
+                    <input type="number" id="hyping" name="hyping" min="1" max="10" required placeholder="Note de 1 à 10">
 
                     <label for="zelda">2. As-tu déjà joué à un ou plusieurs jeux Zelda ?</label>
-                    <textarea id="zelda" name="zelda" rows="2" required></textarea>
+                    <textarea id="zelda" name="zelda" rows="2" required placeholder="Tes expériences avec les jeux Zelda"></textarea>
 
                     <label for="style">3. Quel style de joueur es-tu ?</label>
-                    <input type="text" id="style" name="style" required>
+                    <input type="text" id="style" name="style" required placeholder="Builder, PvP, Farm, Économie, etc.">
 
                     <label for="description">4. Comment te décrirais-tu en quelques mots ?</label>
-                    <input type="text" id="description" name="description" required>
+                    <input type="text" id="description" name="description" required placeholder="Tes qualités, tes défauts">
 
                     <label for="initiative">5. Es-tu plus du genre à suivre ou à proposer des idées ?</label>
                     <select id="initiative" name="initiative" required>
@@ -121,24 +278,30 @@
                     </select>
 
                     <label for="ancien-ob">6. As-tu déjà été dans une OB (ou équipe) avant ?</label>
-                    <textarea id="ancien-ob" name="ancien-ob" rows="2"></textarea>
+                    <textarea id="ancien-ob" name="ancien-ob" rows="2" placeholder="Si oui, laquelle et pourquoi l'as-tu quittée ?"></textarea>
 
                     <label for="specialite">7. As-tu un domaine de prédilection sur Hyping ?</label>
-                    <input type="text" id="specialite" name="specialite" required>
+                    <input type="text" id="specialite" name="specialite" required placeholder="Construction, Farm, Minage, Enchantement, etc.">
 
                     <label for="attentes">8. Que recherches-tu en rejoignant une OB comme la nôtre ?</label>
-                    <textarea id="attentes" name="attentes" rows="3" required></textarea>
+                    <textarea id="attentes" name="attentes" rows="3" required placeholder="Tes attentes et motivations"></textarea>
 
                     <label for="anecdote">9. Une anecdote fun ou originale sur toi ? (facultatif)</label>
-                    <textarea id="anecdote" name="anecdote" rows="2"></textarea>
+                    <textarea id="anecdote" name="anecdote" rows="2" placeholder="Quelque chose d'unique à propos de toi"></textarea>
 
                     <button class="discord-btn" type="submit">Envoyer ma candidature</button>
                 </form>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="index.html" class="home-link">
+                        Retour à l'accueil
+                    </a>
+                </div>
             </section>
         </div>
 
         <footer>
-            <p>✨ Merci de ton intérêt pour l’OB Zelda ✨</p>
+            <p>&copy; 2025 OB Zelda - OneBlock Hyping <span class="triforce">▲</span> Tous droits réservés.</p>
         </footer>
     </div>
 
@@ -147,14 +310,16 @@
             e.preventDefault();
 
             const webhookURL = 'https://discord.com/api/webhooks/1369664433839673475/GuKtZ279BAgKo0PUU_bSzJKFYUTvxCsBUjDhvbKEtPplOk20RDn479uj6OMTd2g2g1jH';
-
             const form = e.target;
+
             const data = {
                 content: null,
                 embeds: [{
                     title: "📥 Nouvelle candidature OB Zelda",
-                    color: 0x00ff88,
+                    color: 0x8bc34a,
                     fields: [
+                        { name: "🎮 Pseudo Minecraft", value: form["pseudo-mc"].value },
+                        { name: "💬 Pseudo Discord", value: form["pseudo-discord"].value },
                         { name: "1️⃣ Connaissance Hyping", value: form.hyping.value, inline: true },
                         { name: "2️⃣ Jeux Zelda joués", value: form.zelda.value || "Non précisé" },
                         { name: "3️⃣ Style de joueur", value: form.style.value },
