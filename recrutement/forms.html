@@ -235,6 +235,35 @@
                 height: 200px;
             }
         }
+        
+        /* Message de succès et d'erreur */
+        .success-message {
+            background-color: rgba(76, 175, 80, 0.2);
+            border-left: 4px solid #4caf50;
+            color: #4caf50;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        
+        .error-message {
+            background-color: rgba(244, 67, 54, 0.2);
+            border-left: 4px solid #f44336;
+            color: #f44336;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        
+        .loading-message {
+            color: var(--accent-color);
+            font-weight: bold;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -289,7 +318,7 @@
                     <label for="anecdote">9. Une anecdote fun ou originale sur toi ?</label>
                     <textarea id="anecdote" name="anecdote" rows="2" placeholder="Facultatif mais sympa à lire !"></textarea>
 
-                    <button class="discord-btn" type="submit">Envoyer ma candidature</button>
+                    <button type="button" id="submit-btn" class="discord-btn">Envoyer ma candidature</button>
                 </form>
                 
                 <div id="status-message" style="margin-top: 20px; text-align: center; display: none;"></div>
@@ -302,109 +331,161 @@
     </div>
 
     <script>
-        document.getElementById('recruitment-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            // Affiche un message de chargement
+        // Attendre que le DOM soit complètement chargé
+        document.addEventListener('DOMContentLoaded', function() {
+            // Récupérer le bouton et ajouter un événement de clic
+            const submitButton = document.getElementById('submit-btn');
+            const form = document.getElementById('recruitment-form');
             const statusMessage = document.getElementById('status-message');
-            statusMessage.style.display = 'block';
-            statusMessage.innerHTML = '<div style="color: var(--accent-color); font-weight: bold;">Envoi en cours...</div>';
-
-            const webhookURL = 'https://discord.com/api/webhooks/1369664433839673475/GuKtZ279BAgKo0PUU_bSzJKFYUTvxCsBUjDhvbKEtPplOk20RDn479uj6OMTd2g2g1jH';
-            const form = e.target;
-
-            // Création des données à envoyer
-            const data = {
-                embeds: [{
-                    title: "📥 Nouvelle candidature OB Zelda",
-                    color: 3899949, // Convertir 0x3b662d en décimal
-                    fields: [
-                        {
-                            name: "🎮 Pseudo Minecraft",
-                            value: form["pseudo-mc"].value,
-                            inline: true
-                        },
-                        {
-                            name: "💬 Pseudo Discord",
-                            value: form["pseudo-discord"].value,
-                            inline: true
-                        },
-                        {
-                            name: "1️⃣ Connaissance du serveur Hyping",
-                            value: form.hyping.value + "/10"
-                        },
-                        {
-                            name: "2️⃣ Expérience avec les jeux Zelda",
-                            value: form.zelda.value || "Non précisé"
-                        },
-                        {
-                            name: "3️⃣ Style de joueur",
-                            value: form.style.value
-                        },
-                        {
-                            name: "4️⃣ Auto-description",
-                            value: form.description.value
-                        },
-                        {
-                            name: "5️⃣ Initiative",
-                            value: form.initiative.value
-                        },
-                        {
-                            name: "6️⃣ Expérience en OB",
-                            value: form["ancien-ob"].value || "Non précisé"
-                        },
-                        {
-                            name: "7️⃣ Domaine de prédilection",
-                            value: form.specialite.value
-                        },
-                        {
-                            name: "8️⃣ Attentes",
-                            value: form.attentes.value
-                        },
-                        {
-                            name: "9️⃣ Anecdote",
-                            value: form.anecdote.value || "Non précisé"
-                        }
-                    ],
-                    footer: {
-                        text: "Candidature reçue automatiquement via le site OB Zelda"
-                    },
-                    timestamp: new Date().toISOString()
-                }]
-            };
-
-            try {
-                const response = await fetch(webhookURL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                });
-                
-                if (response.ok) {
-                    // Affiche un message de succès
-                    statusMessage.innerHTML = '<div style="color: #4caf50; font-weight: bold;">✅ Ta candidature a bien été envoyée ! On la lit et on te dis notre avis ^^</div>';
-                    form.reset();
-                    
-                    // Fait défiler jusqu'au message de statut
-                    statusMessage.scrollIntoView({ behavior: 'smooth' });
-                    
-                    // Cache le message après 5 secondes
-                    setTimeout(() => {
-                        statusMessage.style.display = 'none';
-                    }, 5000);
-                } else {
-                    throw new Error(`Erreur HTTP: ${response.status}`);
+            
+            submitButton.addEventListener('click', async function() {
+                // Vérifier si le formulaire est valide
+                if (!validateForm()) {
+                    return;
                 }
-            } catch (err) {
-                console.error('Erreur lors de l\'envoi:', err);
-                statusMessage.innerHTML = '<div style="color: #f44336; font-weight: bold;">❌ Une erreur est survenue. Merci de réessayer. Si cette erreur persiste, merci d'ouvrir un ticket Discord pour nous en informer.</div>';
                 
-                // Cache le message d'erreur après 5 secondes
+                // Afficher le message de chargement
+                statusMessage.className = 'loading-message';
+                statusMessage.style.display = 'block';
+                statusMessage.innerHTML = 'Envoi en cours...';
+                
+                // URL du webhook Discord
+                const webhookURL = 'https://discord.com/api/webhooks/1369664433839673475/GuKtZ279BAgKo0PUU_bSzJKFYUTvxCsBUjDhvbKEtPplOk20RDn479uj6OMTd2g2g1jH';
+                
+                // Création des données à envoyer
+                const data = {
+                    embeds: [{
+                        title: "📥 Nouvelle candidature OB Zelda",
+                        color: 3899949, // Convertir 0x3b662d en décimal
+                        fields: [
+                            {
+                                name: "🎮 Pseudo Minecraft",
+                                value: document.getElementById('pseudo-mc').value,
+                                inline: true
+                            },
+                            {
+                                name: "💬 Pseudo Discord",
+                                value: document.getElementById('pseudo-discord').value,
+                                inline: true
+                            },
+                            {
+                                name: "1️⃣ Connaissance du serveur Hyping",
+                                value: document.getElementById('hyping').value + "/10"
+                            },
+                            {
+                                name: "2️⃣ Expérience avec les jeux Zelda",
+                                value: document.getElementById('zelda').value || "Non précisé"
+                            },
+                            {
+                                name: "3️⃣ Style de joueur",
+                                value: document.getElementById('style').value
+                            },
+                            {
+                                name: "4️⃣ Auto-description",
+                                value: document.getElementById('description').value
+                            },
+                            {
+                                name: "5️⃣ Initiative",
+                                value: document.getElementById('initiative').value
+                            },
+                            {
+                                name: "6️⃣ Expérience en OB",
+                                value: document.getElementById('ancien-ob').value || "Non précisé"
+                            },
+                            {
+                                name: "7️⃣ Domaine de prédilection",
+                                value: document.getElementById('specialite').value
+                            },
+                            {
+                                name: "8️⃣ Attentes",
+                                value: document.getElementById('attentes').value
+                            },
+                            {
+                                name: "9️⃣ Anecdote",
+                                value: document.getElementById('anecdote').value || "Non précisé"
+                            }
+                        ],
+                        footer: {
+                            text: "Candidature reçue automatiquement via le site OB Zelda"
+                        },
+                        timestamp: new Date().toISOString()
+                    }]
+                };
+
+                try {
+                    const response = await fetch(webhookURL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    
+                    if (response.ok) {
+                        // Afficher un message de succès
+                        statusMessage.className = 'success-message';
+                        statusMessage.innerHTML = '✅ Ta candidature a bien été envoyée ! On la lit et on te dis notre avis ^^';
+                        form.reset();
+                        
+                        // Faire défiler jusqu'au message de statut
+                        statusMessage.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                        throw new Error(`Erreur HTTP: ${response.status}`);
+                    }
+                } catch (err) {
+                    console.error('Erreur lors de l\'envoi:', err);
+                    statusMessage.className = 'error-message';
+                    statusMessage.innerHTML = '❌ Une erreur est survenue. Merci de réessayer. Si cette erreur persiste, merci d\'ouvrir un ticket Discord pour nous en informer.';
+                }
+                
+                // Cacher le message après 5 secondes
                 setTimeout(() => {
                     statusMessage.style.display = 'none';
                 }, 5000);
+            });
+            
+            // Fonction pour valider le formulaire
+            function validateForm() {
+                // Liste des champs requis
+                const requiredFields = [
+                    'pseudo-mc', 
+                    'pseudo-discord', 
+                    'hyping', 
+                    'zelda', 
+                    'style', 
+                    'description', 
+                    'initiative', 
+                    'specialite', 
+                    'attentes'
+                ];
+                
+                let isValid = true;
+                
+                // Vérifier chaque champ requis
+                for (const fieldId of requiredFields) {
+                    const field = document.getElementById(fieldId);
+                    
+                    if (!field.value.trim()) {
+                        field.style.borderColor = '#f44336';
+                        isValid = false;
+                    } else {
+                        field.style.borderColor = 'var(--primary-color)';
+                    }
+                }
+                
+                // Si le formulaire n'est pas valide, afficher un message
+                if (!isValid) {
+                    statusMessage.className = 'error-message';
+                    statusMessage.style.display = 'block';
+                    statusMessage.innerHTML = '❌ Merci de remplir tous les champs obligatoires.';
+                    
+                    // Cacher le message après 3 secondes
+                    setTimeout(() => {
+                        statusMessage.style.display = 'none';
+                    }, 3000);
+                }
+                
+                return isValid;
             }
         });
     </script>
