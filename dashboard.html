@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - OB Zelda</title>
+    <link rel="icon" href="https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/Logo_discord_uj0p2v.png">
+    
+    <!-- Meta tags pour les aperçus sur Discord (Open Graph) -->
+    <meta property="og:title" content="Dashboard - OB Zelda">
+    <meta property="og:description" content="Votre espace personnel OB Zelda">
+    <meta property="og:image" content="https://res.cloudinary.com/dor9octmp/image/upload/v1746016568/minecraft-zelda-botw-build_wklzg5.jpg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="OB Zelda">
+    
+    <style>
+        :root {
+            --primary-color: #1e5631;
+            --secondary-color: #4caf50;
+            --accent-color: #fdcb6e;
+            --light-green: #8bc34a;
+            --text-color: #ffffff;
+            --dark-text: #333333;
+            --bg-color: #0a3410;
+            --card-bg: rgba(30, 86, 49, 0.85);
+            --card-hover: rgba(76, 175, 80, 0.3);
+            --discord-color: #7289DA;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --success-color: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        
+        body {
+            background-image: url('https://res.cloudinary.com/dor9octmp/image/upload/v1744971567/Capture_d_e%CC%81cran_2025-04-18_a%CC%80_11.27.22_fncjkw.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .overlay {
+            background-color: rgba(10, 52, 16, 0.8);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+            margin-right: 10px;
+        }
+        
+        .site-title {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+        }
+        
+        .logout-btn {
+            background-color: var(--danger-color);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+        
+        .dashboard-title {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin: 20px 0;
+            text-align: center;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .dashboard-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--light-green);
+        }
+        
+        .dashboard-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+        }
+        
+        .profile-section {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid var(--light-green);
+        }
+        
+        .profile-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 0 10px rgba(253, 203, 110, 0.5);
+        }
+        
+        .profile-name {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        
+        .discord-id {
+            background-color: var(--discord-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+        
+        .profile-info {
+            margin-top: 20px;
+        }
+        
+        .info-item {
+            margin-bottom: 15px;
+        }
+        
+        .info-label {
+            font-size: 0.9rem;
+            color: var(--light-green);
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .verified-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .verified-badge {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+        
+        .change-username {
+            margin-top: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--accent-color);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--secondary-color);
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            color: var(--text-color);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 5px rgba(253, 203, 110, 0.5);
+        }
+        
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--dark-text);
+        }
+        
+        .btn-primary:hover {
+            background-color: #e4b85c;
+            transform: translateY(-2px);
+        }
+        
+        .sanctions-section {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid var(--light-green);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .sanctions-list {
+            list-style: none;
+        }
+        
+        .sanction-item {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-left: 3px solid var(--warning-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .sanction-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .sanction-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .sanction-type {
+            font-weight: bold;
+            color: var(--warning-color);
+        }
+        
+        .sanction-date {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .sanction-reason {
+            margin-bottom: 10px;
+        }
+        
+        .sanction-issuer {
+            font-size: 0.9rem;
+            color: var(--light-green);
+            text-align: right;
+        }
+        
+        .active-sanction {
+            border-left-color: var(--danger-color);
+        }
+        
+        .active-sanction .sanction-type {
+            color: var(--danger-color);
+        }
+        
+        .expired-sanction {
+            border-left-color: var(--success-color);
+            opacity: 0.8;
+        }
+        
+        .expired-sanction .sanction-type {
+            color: var(--success-color);
+        }
+        
+        .no-sanctions {
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .triforce {
+            display: inline-block;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin: 0 5px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--primary-color);
+            border-top: 3px solid var(--light-green);
+            margin-top: auto;
+        }
+        
+        /* Style pour les tablettes et mobiles */
+        @media (max-width: 768px) {
+            .dashboard-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-header {
+                flex-direction: column;
+            }
+            
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .profile-name {
+                font-size: 1.2rem;
+            }
+            
+            .user-info {
+                gap: 10px;
+            }
+            
+            .site-title {
+                font-size: 1.2rem;
+            }
+            
+            .logout-btn {
+                padding: 5px 10px;
+                font-size: 0.8rem;
+            }
+            
+            .dashboard-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    <script src="auth.js"></script>
+</head>
+<body>
+    <div class="overlay">
+        <header>
+            <div class="logo-container">
+                <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/Logo_discord_uj0p2v.png" alt="OB Zelda Logo" class="logo">
+                <h1 class="site-title">OB Zelda</h1>
+            </div>
+            <div class="user-info">
+                <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/Logo_discord_uj0p2v.png" alt="Avatar de l'utilisateur" class="user-avatar">
+                <span class="username"></span>
+                <a href="#" class="logout-btn">Déconnexion</a>
+            </div>
+        </header>
+        
+        <div class="container">
+            <h2 class="dashboard-title">Tableau de bord</h2>
+            
+            <div class="dashboard-content">
+                <div class="profile-section">
+                    <div class="profile-header">
+                        <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/Logo_discord_uj0p2v.png" alt="Avatar de l'utilisateur" class="profile-avatar">
+                        <div>
+                            <h3 class="profile-name"></h3>
+                            <span class="discord-id"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-info">
+                        <div class="info-item">
+                            <div class="info-label">Compte Discord créé le</div>
+                            <div class="info-value" data-field="account_created_date"></div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-label">Rejoint le serveur le</div>
+                            <div class="info-value" data-field="server_join_date"></div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-label">Pseudo vérifié</div>
+                            <div class="info-value verified-name">
+                                <span data-field="verified_name"></span> <span class="verified-badge">✓</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="change-username">
+                        <h4 class="section-title">Changer le pseudo vérifié</h4>
+                        <form id="username-form">
+                            <div class="form-group">
+                                <label for="new-username" class="form-label">Nouveau pseudo</label>
+                                <input type="text" id="new-username" class="form-control" placeholder="Entrez votre nouveau pseudo">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="sanctions-section">
+                    <h3 class="section-title">Historique des sanctions</h3>
+                    
+                    <ul class="sanctions-list">
+                        <!-- Sanction active -->
+                        <li class="sanction-item active-sanction">
+                            <div class="sanction-header">
+                                <span class="sanction-type">Mute (Actif)</span>
+                                <span class="sanction-date">25/04/2025 - 27/04/2025</span>
+                            </div>
+                            <div class="sanction-reason">
+                                <strong>Raison :</strong> Spam dans le canal #général
+                            </div>
+                            <div class="sanction-issuer">
+                                Par : Modérateur123
+                            </div>
+                        </li>
+                        
+                        <!-- Sanction expirée -->
+                        <li class="sanction-item expired-sanction">
+                            <div class="sanction-header">
+                                <span class="sanction-type">Avertissement (Expiré)</span>
+                                <span class="sanction-date">15/03/2025</span>
+                            </div>
+                            <div class="sanction-reason">
+                                <strong>Raison :</strong> Langage inapproprié
+                            </div>
+                            <div class="sanction-issuer">
+                                Par : Admin456
+                            </div>
+                        </li>
+                        
+                        <!-- Sanction expirée -->
+                        <li class="sanction-item expired-sanction">
+                            <div class="sanction-header">
+                                <span class="sanction-type">Ban temporaire (Expiré)</span>
+                                <span class="sanction-date">22/02/2025 - 28/02/2025</span>
+                            </div>
+                            <div class="sanction-reason">
+                                <strong>Raison :</strong> Non-respect des règles du serveur
+                            </div>
+                            <div class="sanction-issuer">
+                                Par : SuperModo789
+                            </div>
+                        </li>
+                        
+                        <!-- Si aucune sanction -->
+                        <!--
+                        <li class="no-sanctions">
+                            Aucune sanction à afficher
+                        </li>
+                        -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>
+                <span class="triforce">▲</span>
+                OB Zelda - OneBlock Hyping © 2025
+                <span class="triforce">▲</span>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Vérifier si l'utilisateur est connecté
+            redirectIfNotLoggedIn();
+
+            // Charger les informations utilisateur
+            loadUserDashboard();
+
+            // Gestion du formulaire de changement de pseudo
+            document.getElementById('username-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const newUsername = document.getElementById('new-username').value;
+                
+                if (newUsername.trim() !== '') {
+                    // Ici vous pouvez ajouter le code pour envoyer le nouveau pseudo au serveur
+                    alert('Pseudo mis à jour avec succès: ' + newUsername);
+                    document.getElementById('new-username').value = '';
+                    
+                    // Mettre à jour l'interface utilisateur
+                    document.querySelectorAll('[data-field="verified_name"]').forEach(el => {
+                        el.textContent = newUsername;
+                    });
+                } else {
+                    alert('Veuillez entrer un pseudo valide');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
