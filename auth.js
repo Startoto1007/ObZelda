@@ -207,7 +207,4 @@ function getCreationDateFromDiscordId(id) {
     
     // Convertir en milliseconde et ajouter l'epoch Discord
     return Number(timestamp) + DISCORD_EPOCH;
-}    
-    const format = user.avatar.startsWith('a_') ? 'gif' : 'png';
-    return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${format}`;
 }
