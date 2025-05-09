@@ -20,6 +20,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="OB Zelda">
+    <script src="auth.js"></script>
     <style>
         :root {
             --primary-color: #1e5631;
@@ -236,7 +237,7 @@
 <body>
     <div class="overlay">
         <nav>
-            <a href="https://discord.com/api/oauth2/authorize?client_id=1357762980497981731&redirect_uri=https%3A%2F%2Fstartoto1007.github.io%2FObZelda%2Fcallback.html&response_type=token&scope=identify" class="login-btn">
+            <a href="#" id="login-btn" class="login-btn">
                 <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/4/4f/Discord_Logo_sans_texte.svg/1818px-Discord_Logo_sans_texte.svg.png" alt="Discord">
                 Se connecter
             </a>
@@ -258,7 +259,7 @@
                     <p>Découvrez notre équipe et notre histoire</p>
                 </a>
                 
-                <a href="#" class="menu-card">
+                <a href="#" id="panel-link" class="menu-card">
                     <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/Logo_discord_uj0p2v.png" alt="Panel">
                     <h3>Panel Web</h3>
                     <p>Accédez à votre espace personnel</p>
@@ -274,5 +275,33 @@
             </p>
         </footer>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Vérifier si l'utilisateur est déjà connecté
+            if (checkAuth()) {
+                document.getElementById('login-btn').textContent = 'Mon compte';
+                document.getElementById('login-btn').href = 'dashboard.html';
+            }
+
+            // Configuration du bouton de connexion
+            document.getElementById('login-btn').addEventListener('click', function(event) {
+                if (!checkAuth()) {
+                    event.preventDefault();
+                    window.location.href = getAuthUrl();
+                }
+            });
+
+            // Configuration du lien vers le panel
+            document.getElementById('panel-link').addEventListener('click', function(event) {
+                event.preventDefault();
+                if (checkAuth()) {
+                    window.location.href = 'dashboard.html';
+                } else {
+                    window.location.href = getAuthUrl();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
