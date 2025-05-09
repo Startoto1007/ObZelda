@@ -111,9 +111,12 @@
                 const tokenType = fragment.get('token_type');
                 const expiresIn = fragment.get('expires_in');
                 
+                console.log("Recherche de token dans:", window.location.hash);
+                console.log("Access token trouvé:", accessToken);
+                
                 // Vérifier si le token est présent
                 if (!accessToken) {
-                    throw new Error('Token d\'accès non trouvé');
+                    throw new Error('Token d\'accès non trouvé. Assurez-vous que le flux OAuth2 est correctement configuré.');
                 }
                 
                 // Calculer la date d'expiration
@@ -130,6 +133,8 @@
                     throw new Error('Impossible de récupérer les informations utilisateur');
                 }
                 
+                console.log("Utilisateur authentifié avec succès:", userData.username);
+                
                 // Rediriger vers le dashboard
                 window.location.href = 'dashboard.html';
                 
@@ -141,7 +146,7 @@
                 // Rediriger vers la page d'accueil après un délai
                 setTimeout(() => {
                     window.location.href = 'index.html';
-                }, 3000);
+                }, 5000);
             }
         });
     </script>
