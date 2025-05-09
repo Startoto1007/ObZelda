@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OB Zelda - OneBlock Hyping</title>
+    <link rel="icon" href="https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/Logo_discord_uj0p2v.png">
+    
+    <!-- Meta tags pour les aperçus sur Discord (Open Graph) -->
+    <meta property="og:title" content="OB Zelda - OneBlock Hyping">
+    <meta property="og:description" content="Découvrez notre site web !">
+    <meta property="og:image" content="https://res.cloudinary.com/dor9octmp/image/upload/v1746016568/minecraft-zelda-botw-build_wklzg5.jpg">
+    <meta property="og:url" content="https://startoto1007.github.io/ObZelda/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="OB Zelda">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    <!-- Meta tags pour Apple -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="OB Zelda">
+    <style>
+        :root {
+            --primary-color: #1e5631;
+            --secondary-color: #4caf50;
+            --accent-color: #fdcb6e;
+            --light-green: #8bc34a;
+            --text-color: #ffffff;
+            --dark-text: #333333;
+            --bg-color: #0a3410;
+            --card-bg: rgba(30, 86, 49, 0.85);
+            --card-hover: rgba(76, 175, 80, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        
+        body {
+            background-image: url('https://res.cloudinary.com/dor9octmp/image/upload/v1744971567/Capture_d_e%CC%81cran_2025-04-18_a%CC%80_11.27.22_fncjkw.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .overlay {
+            background-color: rgba(10, 52, 16, 0.8);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            z-index: 10;
+        }
+        
+        .login-btn {
+            background-color: #7289DA;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            background-color: #5e73bc;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .login-btn img {
+            width: 20px;
+            height: 20px;
+        }
+        
+        header {
+            background-image: url('https://res.cloudinary.com/dor9octmp/image/upload/v1746016568/minecraft-zelda-botw-build_wklzg5.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            position: relative;
+        }
+        
+        .header-overlay {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(10, 52, 16, 0.8));
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(253, 203, 110, 0.7);
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .menu-options {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .menu-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            width: 250px;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--accent-color);
+        }
+        
+        .menu-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.1) 0%, rgba(30, 86, 49, 0.6) 100%);
+            z-index: -1;
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(253, 203, 110, 0.3);
+        }
+        
+        .menu-card img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 5px rgba(253, 203, 110, 0.5));
+        }
+        
+        .menu-card h3 {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .menu-card p {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--primary-color);
+            border-top: 3px solid var(--light-green);
+        }
+        
+        .triforce {
+            display: inline-block;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin: 0 5px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .menu-options {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .menu-card {
+                width: 220px;
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <nav>
+            <a href="#" class="login-btn">
+                <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/Logo_discord_uj0p2v.png" alt="Discord">
+                Se connecter
+            </a>
+        </nav>
+        
+        <header>
+            <div class="header-overlay">
+                <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/Logo_discord_uj0p2v.png" alt="OB Zelda Logo" class="logo">
+                <h1>OB Zelda</h1>
+                <p>Bienvenue dans l'univers de OneBlock Hyping</p>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="menu-options">
+                <a href="#" class="menu-card">
+                    <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/Logo_discord_uj0p2v.png" alt="À propos">
+                    <h3>À propos de nous</h3>
+                    <p>Découvrez notre équipe et notre histoire</p>
+                </a>
+                
+                <a href="#" class="menu-card">
+                    <img src="https://res.cloudinary.com/dor9octmp/image/upload/v1745145521/Logo_discord_uj0p2v.png" alt="Panel">
+                    <h3>Panel Web</h3>
+                    <p>Accédez à votre espace personnel</p>
+                </a>
+            </div>
+        </div>
+        
+        <footer>
+            <p>
+                <span class="triforce">▲</span>
+                OB Zelda - OneBlock Hyping © 2025
+                <span class="triforce">▲</span>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
