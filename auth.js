@@ -7,7 +7,7 @@ const DISCORD_API = 'https://discord.com/api/v10';
 // Générer l'URL d'authentification Discord
 function getAuthUrl() {
     const scope = 'identify guilds';
-    return `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=${scope}`;
+    return `https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=${scope}`;
 }
 
 // Vérifier si l'utilisateur est déjà connecté
@@ -45,6 +45,12 @@ async function fetchUserInfo() {
         });
         
         if (!response.ok) {
+            if (response.status === 401) {
+                // Token invalide ou expiré
+                console.error('Token invalide ou expiré');
+                logout();
+                return null;
+            }
             throw new Error(`Erreur API Discord: ${response.status}`);
         }
         
@@ -74,6 +80,12 @@ async function fetchUserGuilds() {
         });
         
         if (!response.ok) {
+            if (response.status === 401) {
+                // Token invalide ou expiré
+                console.error('Token invalide ou expiré');
+                logout();
+                return null;
+            }
             throw new Error(`Erreur API Discord: ${response.status}`);
         }
         
