@@ -117,6 +117,43 @@
             border-left: 4px solid var(--light-green);
         }
         
+        .form-part {
+            display: none;
+        }
+        
+        .form-part.active {
+            display: block;
+        }
+        
+        .progress-container {
+            background-color: rgba(30, 86, 49, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .progress-bar {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            height: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, var(--light-green), var(--accent-color));
+            height: 100%;
+            width: 50%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
         .section-title {
             font-size: 1.8rem;
             margin: 20px 0;
@@ -191,6 +228,47 @@
             outline: none;
         }
         
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+        
+        .nav-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+        
+        .prev-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .prev-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .next-btn {
+            background-color: var(--light-green);
+            color: white;
+        }
+        
+        .next-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+        
         button.discord-btn {
             background-color: var(--discord-color);
             color: white;
@@ -210,6 +288,99 @@
             background-color: #5e73bc;
             transform: translateY(-2px);
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .disabled {
+            opacity: 0.5;
+            cursor: not-allowed !important;
+        }
+        
+        .calendar-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 10px;
+            color: var(--dark-text);
+        }
+        
+        .calendar-title {
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .calendar-instructions {
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--dark-text);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: 80px repeat(7, 1fr);
+            gap: 1px;
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .calendar-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 4px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+        
+        .time-slot {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 4px 2px;
+            text-align: center;
+            font-size: 0.7rem;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+        
+        .calendar-cell {
+            background-color: white;
+            padding: 3px;
+            min-height: 25px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border: 1px solid transparent;
+        }
+        
+        .calendar-cell:hover {
+            background-color: rgba(139, 195, 74, 0.3);
+        }
+        
+        .calendar-cell.selected {
+            background-color: var(--light-green);
+            color: white;
+        }
+        
+        .calendar-summary {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: rgba(30, 86, 49, 0.1);
+            border-radius: 5px;
+            border-left: 4px solid var(--light-green);
+        }
+        
+        .calendar-summary h4 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .calendar-summary p {
+            margin: 2px 0;
+            font-size: 0.9rem;
         }
         
         .home-link {
@@ -260,6 +431,24 @@
             header {
                 height: 200px;
             }
+            
+            .calendar-grid {
+                grid-template-columns: 60px repeat(7, 1fr);
+                font-size: 0.8rem;
+            }
+            
+            .time-slot {
+                font-size: 0.6rem;
+            }
+            
+            .calendar-header {
+                font-size: 0.7rem;
+                padding: 6px 2px;
+            }
+            
+            .navigation-buttons {
+                flex-direction: column;
+            }
         }
         
         /* Message de succès et d'erreur */
@@ -303,84 +492,114 @@
         </header>
 
         <div class="container">
+            <div class="progress-container">
+                <div class="progress-text" id="progress-text">Partie 1 sur 2</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+
             <section class="section">
                 <h2>Formulaire de recrutement</h2>
                 <form id="recruitment-form">
                     
                     <!-- Partie 1 - Informations Générales -->
-                    <div class="section-title">🌿 Partie 1 – Informations Générales</div>
-                    
-                    <label for="pseudo-mc">1. 🎮 Ton pseudo Minecraft</label>
-                    <input type="text" id="pseudo-mc" name="pseudo-mc" required placeholder="Ton pseudo InGame">
+                    <div class="form-part active" id="part1">
+                        <div class="section-title">🌿 Partie 1 – Informations Générales</div>
+                        
+                        <label for="pseudo-mc">1. 🎮 Ton pseudo Minecraft</label>
+                        <input type="text" id="pseudo-mc" name="pseudo-mc" required placeholder="Ton pseudo InGame">
 
-                    <label for="pseudo-discord">2. 💬 Ton pseudo Discord (avec tag)</label>
-                    <input type="text" id="pseudo-discord" name="pseudo-discord" required placeholder="Ton pseudo Discord avec le tag">
+                        <label for="pseudo-discord">2. 💬 Ton pseudo Discord (avec tag)</label>
+                        <input type="text" id="pseudo-discord" name="pseudo-discord" required placeholder="Ton pseudo Discord avec le tag">
 
-                    <label for="hyping">3. 📊 Sur une échelle de 1 à 10, à quel point connais-tu le serveur Hyping ?</label>
-                    <input type="number" id="hyping" name="hyping" min="1" max="10" required placeholder="Note de 1 à 10">
+                        <label for="hyping">3. 📊 Sur une échelle de 1 à 10, à quel point connais-tu le serveur Hyping ?</label>
+                        <input type="number" id="hyping" name="hyping" min="1" max="10" required placeholder="Note de 1 à 10">
 
-                    <label for="zelda">4. 🗡️ As-tu déjà joué à un ou plusieurs jeux Zelda ? Si oui, lesquels ?</label>
-                    <textarea id="zelda" name="zelda" rows="2" required placeholder="Tes expériences avec les jeux Zelda"></textarea>
+                        <label for="zelda">4. 🗡️ As-tu déjà joué à un ou plusieurs jeux Zelda ? Si oui, lesquels ?</label>
+                        <textarea id="zelda" name="zelda" rows="2" required placeholder="Tes expériences avec les jeux Zelda"></textarea>
 
-                    <label for="style">5. 🎮 Quel style de joueur es-tu ?</label>
-                    <input type="text" id="style" name="style" required placeholder="(Exemples : solo chill, team player, tryharder, builder créatif...)">
+                        <label for="style">5. 🎮 Quel style de joueur es-tu ?</label>
+                        <input type="text" id="style" name="style" required placeholder="(Exemples : solo chill, team player, tryharder, builder créatif...)">
 
-                    <label for="description">6. 🧠 Décris-toi en quelques adjectifs</label>
-                    <input type="text" id="description" name="description" required placeholder="(3-4 adjectifs suffisent)">
+                        <label for="description">6. 🧠 Décris-toi en quelques adjectifs</label>
+                        <input type="text" id="description" name="description" required placeholder="(3-4 adjectifs suffisent)">
 
-                    <label for="initiative">7. 💡 Es-tu plus du genre à suivre ou à proposer des idées ?</label>
-                    <select id="initiative" name="initiative" required>
-                        <option value="">-- Choisis une option --</option>
-                        <option value="Je préfère suivre">Je préfère suivre</option>
-                        <option value="Je propose souvent">Je propose souvent</option>
-                        <option value="Un peu des deux">Un peu des deux</option>
-                    </select>
+                        <label for="initiative">7. 💡 Es-tu plus du genre à suivre ou à proposer des idées ?</label>
+                        <select id="initiative" name="initiative" required>
+                            <option value="">-- Choisis une option --</option>
+                            <option value="Je préfère suivre">Je préfère suivre</option>
+                            <option value="Je propose souvent">Je propose souvent</option>
+                            <option value="Un peu des deux">Un peu des deux</option>
+                        </select>
 
-                    <label for="ancien-ob">8. 🛡️ As-tu déjà fait partie d'une/des OB (ou autre équipe) ? Si oui, laquelle/lesquelles et comment c'était ?</label>
-                    <textarea id="ancien-ob" name="ancien-ob" rows="2" placeholder="Si oui, laquelle et comment c'était ?"></textarea>
+                        <label for="ancien-ob">8. 🛡️ As-tu déjà fait partie d'une/des OB (ou autre équipe) ? Si oui, laquelle/lesquelles et comment c'était ?</label>
+                        <textarea id="ancien-ob" name="ancien-ob" rows="2" placeholder="Si oui, laquelle et comment c'était ?"></textarea>
 
-                    <label for="specialite">9. 🧱 Quel est ton domaine de prédilection sur Hyping ?</label>
-                    <input type="text" id="specialite" name="specialite" required placeholder="(Exemples : construction, farm, minage, pêche, dailys...)">
+                        <label for="specialite">9. 🧱 Quel est ton domaine de prédilection sur Hyping ?</label>
+                        <input type="text" id="specialite" name="specialite" required placeholder="(Exemples : construction, farm, minage, pêche, dailys...)">
 
-                    <label for="attentes">10. 🎯 Qu'attends-tu en rejoignant une OB comme la nôtre ?</label>
-                    <textarea id="attentes" name="attentes" rows="3" required placeholder="Tes attentes et motivations"></textarea>
+                        <label for="attentes">10. 🎯 Qu'attends-tu en rejoignant une OB comme la nôtre ?</label>
+                        <textarea id="attentes" name="attentes" rows="3" required placeholder="Tes attentes et motivations"></textarea>
 
-                    <label for="anecdote">11. 😄 Une anecdote fun ou originale sur toi (facultatif mais sympa !)</label>
-                    <textarea id="anecdote" name="anecdote" rows="2" placeholder="Facultatif mais sympa à lire !"></textarea>
+                        <label for="anecdote">11. 😄 Une anecdote fun ou originale sur toi (facultatif mais sympa !)</label>
+                        <textarea id="anecdote" name="anecdote" rows="2" placeholder="Facultatif mais sympa à lire !"></textarea>
+
+                        <div class="navigation-buttons">
+                            <button type="button" class="nav-btn prev-btn disabled" id="prev-btn">← Précédent</button>
+                            <button type="button" class="nav-btn next-btn" id="next-btn">Suivant →</button>
+                        </div>
+                    </div>
 
                     <!-- Partie 2 - Évaluation & Intégration -->
-                    <div class="section-title">🧱 Partie 2 – Évaluation & Intégration</div>
+                    <div class="form-part" id="part2">
+                        <div class="section-title">🧱 Partie 2 – Évaluation & Intégration</div>
 
-                    <label for="stuff">1. ⚔️ Décris ton stuff actuel</label>
-                    <textarea id="stuff" name="stuff" rows="3" required placeholder="Armure, outils..."></textarea>
+                        <label for="stuff">1. ⚔️ Décris ton stuff actuel</label>
+                        <textarea id="stuff" name="stuff" rows="3" required placeholder="Armure, outils..."></textarea>
 
-                    <label for="prestige">2. 🏅 Quel est ton prestige actuel ?</label>
-                    <input type="text" id="prestige" name="prestige" required placeholder="Exemple : Argent I, Or II... (Or I recommandé)">
+                        <label for="prestige">2. 🏅 Quel est ton prestige actuel ?</label>
+                        <input type="text" id="prestige" name="prestige" required placeholder="Exemple : Argent I, Or II... (Or I recommandé)">
 
-                    <label for="temps-jeu">3. ⏱️ Quelles sont tes heures de jeux ?</label>
-                    <input type="text" id="temps-jeu" name="temps-jeu" required placeholder="Exemple : de 17h à 19h en semaine, 14h à 17h 30 le week-end">
+                        <label for="temps-jeu">3. ⏱️ Quelles sont tes heures de jeux ?</label>
+                        <div class="calendar-container">
+                            <div class="calendar-title">📅 Sélectionne tes créneaux de jeu</div>
+                            <div class="calendar-instructions">Clique sur les cases pour sélectionner tes heures de jeu disponibles</div>
+                            <div class="calendar-grid" id="calendar-grid">
+                                <!-- Le calendrier sera généré par JavaScript -->
+                            </div>
+                            <div class="calendar-summary" id="calendar-summary">
+                                <h4>Résumé de tes créneaux :</h4>
+                                <p id="summary-text">Aucun créneau sélectionné</p>
+                            </div>
+                        </div>
+                        <input type="hidden" id="temps-jeu" name="temps-jeu" required>
 
-                    <label for="attentes-ob">4. 🎯 As-tu des attentes précises envers l'OB ou son fonctionnement ?</label>
-                    <textarea id="attentes-ob" name="attentes-ob" rows="2" required placeholder="Tes attentes spécifiques"></textarea>
+                        <label for="attentes-ob">4. 🎯 As-tu des attentes précises envers l'OB ou son fonctionnement ?</label>
+                        <textarea id="attentes-ob" name="attentes-ob" rows="2" required placeholder="Tes attentes spécifiques"></textarea>
 
-                    <label for="age">5. 📅 Si tu es d'accord, quel est ton âge (approximatif) ?</label>
-                    <input type="text" id="age" name="age" placeholder="Facultatif">
+                        <label for="age">5. 📅 Si tu es d'accord, quel est ton âge (approximatif) ?</label>
+                        <input type="text" id="age" name="age" placeholder="Facultatif">
 
-                    <label for="installation">6. 🏡 Quelles seraient tes modalités pour t'installer dans l'OB ?</label>
-                    <textarea id="installation" name="installation" rows="2" required placeholder="Ex : j'aimerais un espace d'au moins 20x20 blocs pour construire"></textarea>
+                        <label for="installation">6. 🏡 Quelles seraient tes modalités pour t'installer dans l'OB ?</label>
+                        <textarea id="installation" name="installation" rows="2" required placeholder="Ex : j'aimerais un espace d'au moins 20x20 blocs pour construire"></textarea>
 
-                    <label for="confiance">7. 🔒 Qu'est-ce qui nous prouve qu'on peut te faire confiance ?</label>
-                    <textarea id="confiance" name="confiance" rows="3" required placeholder="Explique pourquoi on peut te faire confiance"></textarea>
+                        <label for="confiance">7. 🔒 Qu'est-ce qui nous prouve qu'on peut te faire confiance ?</label>
+                        <textarea id="confiance" name="confiance" rows="3" required placeholder="Explique pourquoi on peut te faire confiance"></textarea>
 
-                    <label for="teleportation">8. 💀 Tu ne risques pas de t'évanouir quand je te téléporte dans l'OB (elle est "un peu" en travaux mdr) ?</label>
-                    <select id="teleportation" name="teleportation" required>
-                        <option value="">-- Choisis une réponse --</option>
-                        <option value="Non, ça va aller !">Non, ça va aller !</option>
-                        <option value="Peut-être un peu... 😅">Peut-être un peu... 😅</option>
-                        <option value="J'ai confiance en votre construction !">J'ai confiance en votre construction !</option>
-                    </select>
+                        <label for="teleportation">8. 💀 Tu ne risques pas de t'évanouir quand je te téléporte dans l'OB (elle est "un peu" en travaux mdr) ?</label>
+                        <select id="teleportation" name="teleportation" required>
+                            <option value="">-- Choisis une réponse --</option>
+                            <option value="Non, ça va aller !">Non, ça va aller !</option>
+                            <option value="Peut-être un peu... 😅">Peut-être un peu... 😅</option>
+                            <option value="J'ai confiance en votre construction !">J'ai confiance en votre construction !</option>
+                        </select>
 
-                    <button type="button" id="submit-btn" class="discord-btn">Envoyer ma candidature</button>
+                        <div class="navigation-buttons">
+                            <button type="button" class="nav-btn prev-btn" id="prev-btn-2">← Précédent</button>
+                            <button type="button" id="submit-btn" class="discord-btn">Envoyer ma candidature</button>
+                        </div>
+                    </div>
                 </form>
                 
                 <div id="status-message" style="margin-top: 20px; text-align: center; display: none;"></div>
@@ -393,210 +612,121 @@
     </div>
 
     <script>
+        // Variables globales
+        let currentPart = 1;
+        let selectedTimeSlots = new Set();
+        
         // Attendre que le DOM soit complètement chargé
         document.addEventListener('DOMContentLoaded', function() {
-            // Récupérer le bouton et ajouter un événement de clic
-            const submitButton = document.getElementById('submit-btn');
-            const form = document.getElementById('recruitment-form');
-            const statusMessage = document.getElementById('status-message');
+            initializeCalendar();
+            initializeNavigation();
+            initializeForm();
+        });
+        
+        // Initialisation du calendrier
+        function initializeCalendar() {
+            const calendarGrid = document.getElementById('calendar-grid');
+            const days = ['Heure', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
             
-            submitButton.addEventListener('click', async function() {
-                // Vérifier si le formulaire est valide
-                if (!validateForm()) {
-                    return;
-                }
-                
-                // Afficher le message de chargement
-                statusMessage.className = 'loading-message';
-                statusMessage.style.display = 'block';
-                statusMessage.innerHTML = 'Envoi en cours...';
-                
-                // URL du webhook Discord
-                const webhookURL = 'https://discord.com/api/webhooks/1369664433839673475/GuKtZ279BAgKo0PUU_bSzJKFYUTvxCsBUjDhvbKEtPplOk20RDn479uj6OMTd2g2g1jH';
-                
-                // Création des données à envoyer
-                const data = {
-                    embeds: [{
-                        title: "📥 Nouvelle candidature OB Zelda",
-                        color: 3899949, // Convertir 0x3b662d en décimal
-                        fields: [
-                            {
-                                name: "🌿 **PARTIE 1 – INFORMATIONS GÉNÉRALES**",
-                                value: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-                            },
-                            {
-                                name: "1. 🎮 Pseudo Minecraft",
-                                value: document.getElementById('pseudo-mc').value,
-                                inline: true
-                            },
-                            {
-                                name: "2. 💬 Pseudo Discord",
-                                value: document.getElementById('pseudo-discord').value,
-                                inline: true
-                            },
-                            {
-                                name: "3. 📊 Connaissance du serveur Hyping",
-                                value: document.getElementById('hyping').value + "/10"
-                            },
-                            {
-                                name: "4. 🗡️ Expérience avec les jeux Zelda",
-                                value: document.getElementById('zelda').value || "Non précisé"
-                            },
-                            {
-                                name: "5. 🎮 Style de joueur",
-                                value: document.getElementById('style').value
-                            },
-                            {
-                                name: "6. 🧠 Auto-description",
-                                value: document.getElementById('description').value
-                            },
-                            {
-                                name: "7. 💡 Initiative",
-                                value: document.getElementById('initiative').value
-                            },
-                            {
-                                name: "8. 🛡️ Expérience en OB",
-                                value: document.getElementById('ancien-ob').value || "Non précisé"
-                            },
-                            {
-                                name: "9. 🧱 Domaine de prédilection",
-                                value: document.getElementById('specialite').value
-                            },
-                            {
-                                name: "10. 🎯 Attentes générales",
-                                value: document.getElementById('attentes').value
-                            },
-                            {
-                                name: "11. 😄 Anecdote",
-                                value: document.getElementById('anecdote').value || "Non précisé"
-                            },
-                            {
-                                name: "🧱 **PARTIE 2 – ÉVALUATION & INTÉGRATION**",
-                                value: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-                            },
-                            {
-                                name: "1. ⚔️ Stuff actuel",
-                                value: document.getElementById('stuff').value
-                            },
-                            {
-                                name: "2. 🏅 Prestige actuel",
-                                value: document.getElementById('prestige').value
-                            },
-                            {
-                                name: "3. ⏱️ Temps de jeu",
-                                value: document.getElementById('temps-jeu').value
-                            },
-                            {
-                                name: "4. 🎯 Attentes envers l'OB",
-                                value: document.getElementById('attentes-ob').value
-                            },
-                            {
-                                name: "5. 📅 Âge",
-                                value: document.getElementById('age').value || "Non précisé"
-                            },
-                            {
-                                name: "6. 🏡 Modalités d'installation",
-                                value: document.getElementById('installation').value
-                            },
-                            {
-                                name: "7. 🔒 Preuves de confiance",
-                                value: document.getElementById('confiance').value
-                            },
-                            {
-                                name: "8. 💀 Réaction à la téléportation",
-                                value: document.getElementById('teleportation').value
-                            }
-                        ],
-                        footer: {
-                            text: "Candidature reçue automatiquement via le site OB Zelda"
-                        },
-                        timestamp: new Date().toISOString()
-                    }]
-                };
-
-                try {
-                    const response = await fetch(webhookURL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(data)
-                    });
-                    
-                    if (response.ok) {
-                        // Afficher un message de succès
-                        statusMessage.className = 'success-message';
-                        statusMessage.innerHTML = '✅ Ta candidature a bien été envoyée ! On la lit et on te dit notre avis ^^';
-                        form.reset();
-                        
-                        // Faire défiler jusqu'au message de statut
-                        statusMessage.scrollIntoView({ behavior: 'smooth' });
-                    } else {
-                        throw new Error(`Erreur HTTP: ${response.status}`);
-                    }
-                } catch (err) {
-                    console.error('Erreur lors de l\'envoi:', err);
-                    statusMessage.className = 'error-message';
-                    statusMessage.innerHTML = '❌ Une erreur est survenue. Merci de réessayer. Si cette erreur persiste, merci d\'ouvrir un ticket Discord pour nous en informer.';
-                }
-                
-                // Cacher le message après 5 secondes
-                setTimeout(() => {
-                    statusMessage.style.display = 'none';
-                }, 5000);
+            // Créer les en-têtes
+            days.forEach(day => {
+                const header = document.createElement('div');
+                header.className = 'calendar-header';
+                header.textContent = day;
+                calendarGrid.appendChild(header);
             });
             
-            // Fonction pour valider le formulaire
-            function validateForm() {
-                // Liste des champs requis
-                const requiredFields = [
-                    'pseudo-mc', 
-                    'pseudo-discord', 
-                    'hyping', 
-                    'zelda', 
-                    'style', 
-                    'description', 
-                    'initiative', 
-                    'specialite', 
-                    'attentes',
-                    'stuff',
-                    'prestige',
-                    'temps-jeu',
-                    'attentes-ob',
-                    'installation',
-                    'confiance',
-                    'teleportation'
-                ];
-                
-                let isValid = true;
-                
-                // Vérifier chaque champ requis
-                for (const fieldId of requiredFields) {
-                    const field = document.getElementById(fieldId);
+            // Créer les créneaux horaires (6h à 24h par tranches de 30min)
+            for (let hour = 6; hour < 24; hour++) {
+                for (let minute = 0; minute < 60; minute += 30) {
+                    const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
                     
-                    if (!field.value.trim()) {
-                        field.style.borderColor = '#f44336';
-                        isValid = false;
-                    } else {
-                        field.style.borderColor = 'var(--primary-color)';
+                    // Cellule de l'heure
+                    const timeCell = document.createElement('div');
+                    timeCell.className = 'time-slot';
+                    timeCell.textContent = timeString;
+                    calendarGrid.appendChild(timeCell);
+                    
+                    // Cellules pour chaque jour
+                    for (let day = 1; day <= 7; day++) {
+                        const cell = document.createElement('div');
+                        cell.className = 'calendar-cell';
+                        cell.dataset.day = day;
+                        cell.dataset.time = timeString;
+                        cell.dataset.slot = `${day}-${timeString}`;
+                        
+                        cell.addEventListener('click', function() {
+                            toggleTimeSlot(this);
+                        });
+                        
+                        calendarGrid.appendChild(cell);
                     }
                 }
-                
-                // Si le formulaire n'est pas valide, afficher un message
-                if (!isValid) {
-                    statusMessage.className = 'error-message';
-                    statusMessage.style.display = 'block';
-                    statusMessage.innerHTML = '❌ Merci de remplir tous les champs obligatoires.';
-                    
-                    // Cacher le message après 3 secondes
-                    setTimeout(() => {
-                        statusMessage.style.display = 'none';
-                    }, 3000);
-                }
-                
-                return isValid;
             }
-        });
-    </script>
-</body>
-</html>
+        }
+        
+        // Basculer la sélection d'un créneau
+        function toggleTimeSlot(cell) {
+            const slot = cell.dataset.slot;
+            
+            if (selectedTimeSlots.has(slot)) {
+                selectedTimeSlots.delete(slot);
+                cell.classList.remove('selected');
+            } else {
+                selectedTimeSlots.add(slot);
+                cell.classList.add('selected');
+            }
+            
+            updateCalendarSummary();
+        }
+        
+        // Mettre à jour le résumé du calendrier
+        function updateCalendarSummary() {
+            const summaryText = document.getElementById('summary-text');
+            const hiddenInput = document.getElementById('temps-jeu');
+            
+            if (selectedTimeSlots.size === 0) {
+                summaryText.textContent = 'Aucun créneau sélectionné';
+                hiddenInput.value = '';
+                return;
+            }
+            
+            // Organiser par jour
+            const dayNames = ['', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+            const schedule = {};
+            
+            selectedTimeSlots.forEach(slot => {
+                const [day, time] = slot.split('-');
+                const dayName = dayNames[parseInt(day)];
+                
+                if (!schedule[dayName]) {
+                    schedule[dayName] = [];
+                }
+                schedule[dayName].push(time);
+            });
+            
+            // Créer le texte de résumé
+            let summaryHTML = '';
+            let summaryText_value = '';
+            
+            Object.keys(schedule).forEach(day => {
+                const times = schedule[day].sort();
+                const ranges = consolidateTimeRanges(times);
+                summaryHTML += `<p><strong>${day}:</strong> ${ranges.join(', ')}</p>`;
+                summaryText_value += `${day}: ${ranges.join(', ')}; `;
+            });
+            
+            summaryText.innerHTML = summaryHTML;
+            hiddenInput.value = summaryText_value.trim();
+        }
+        
+        // Consolider les créneaux en plages horaires
+        function consolidateTimeRanges(times) {
+            if (times.length === 0) return [];
+            
+            const ranges = [];
+            let start = times[0];
+            let end = times[0];
+            
+            for (let i = 1; i < times.length; i++) {
+                const
