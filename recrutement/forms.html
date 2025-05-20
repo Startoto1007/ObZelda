@@ -117,6 +117,27 @@
             border-left: 4px solid var(--light-green);
         }
         
+        .section-title {
+            font-size: 1.8rem;
+            margin: 20px 0;
+            color: var(--accent-color);
+            text-align: center;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--light-green);
+        }
+        
         h2 {
             font-size: 2rem;
             margin: 20px 0;
@@ -143,6 +164,7 @@
             margin-top: 20px;
             font-weight: bold;
             color: var(--light-green);
+            font-size: 1.1rem;
         }
         
         input[type="text"],
@@ -227,6 +249,10 @@
                 font-size: 1.5rem;
             }
             
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
             .section {
                 padding: 20px;
             }
@@ -280,43 +306,79 @@
             <section class="section">
                 <h2>Formulaire de recrutement</h2>
                 <form id="recruitment-form">
-                    <label for="pseudo-mc">🎮 Pseudo Minecraft</label>
+                    
+                    <!-- Partie 1 - Informations Générales -->
+                    <div class="section-title">🌿 Partie 1 – Informations Générales</div>
+                    
+                    <label for="pseudo-mc">1. 🎮 Ton pseudo Minecraft</label>
                     <input type="text" id="pseudo-mc" name="pseudo-mc" required placeholder="Ton pseudo InGame">
 
-                    <label for="pseudo-discord">💬 Pseudo Discord</label>
+                    <label for="pseudo-discord">2. 💬 Ton pseudo Discord (avec tag)</label>
                     <input type="text" id="pseudo-discord" name="pseudo-discord" required placeholder="Ton pseudo Discord avec le tag">
 
-                    <label for="hyping">1. Connais-tu bien le serveur Hyping ?</label>
+                    <label for="hyping">3. 📊 Sur une échelle de 1 à 10, à quel point connais-tu le serveur Hyping ?</label>
                     <input type="number" id="hyping" name="hyping" min="1" max="10" required placeholder="Note de 1 à 10">
 
-                    <label for="zelda">2. As-tu déjà joué à un ou plusieurs jeux Zelda ?</label>
+                    <label for="zelda">4. 🗡️ As-tu déjà joué à un ou plusieurs jeux Zelda ? Si oui, lesquels ?</label>
                     <textarea id="zelda" name="zelda" rows="2" required placeholder="Tes expériences avec les jeux Zelda"></textarea>
 
-                    <label for="style">3. Quel style de joueur es-tu ?</label>
-                    <input type="text" id="style" name="style" required placeholder="(Exemples : solo chill, team player, tryharder, builder créatif, etc.)">
+                    <label for="style">5. 🎮 Quel style de joueur es-tu ?</label>
+                    <input type="text" id="style" name="style" required placeholder="(Exemples : solo chill, team player, tryharder, builder créatif...)">
 
-                    <label for="description">4. Comment te décrirais-tu en quelques mots ?</label>
-                    <input type="text" id="description" name="description" required placeholder="(3-4 adjectifs suffisent !)">
+                    <label for="description">6. 🧠 Décris-toi en quelques adjectifs</label>
+                    <input type="text" id="description" name="description" required placeholder="(3-4 adjectifs suffisent)">
 
-                    <label for="initiative">5. Es-tu plus du genre à suivre ou à proposer des idées ?</label>
+                    <label for="initiative">7. 💡 Es-tu plus du genre à suivre ou à proposer des idées ?</label>
                     <select id="initiative" name="initiative" required>
                         <option value="">-- Choisis une option --</option>
                         <option value="Je préfère suivre">Je préfère suivre</option>
-                        <option value="Je propose souvent des idées">Je propose souvent des idées</option>
+                        <option value="Je propose souvent">Je propose souvent</option>
                         <option value="Un peu des deux">Un peu des deux</option>
                     </select>
 
-                    <label for="ancien-ob">6. As-tu déjà été dans une OB (ou équipe) avant ?</label>
-                    <textarea id="ancien-ob" name="ancien-ob" rows="2" placeholder="Si oui, laquelle ? Qu'en as-tu pensé ?"></textarea>
+                    <label for="ancien-ob">8. 🛡️ As-tu déjà fait partie d'une OB (ou autre équipe) ? Si oui, laquelle et comment c'était ?</label>
+                    <textarea id="ancien-ob" name="ancien-ob" rows="2" placeholder="Si oui, laquelle et comment c'était ?"></textarea>
 
-                    <label for="specialite">7. As-tu un domaine de prédilection (préférence) sur Hyping ?</label>
-                    <input type="text" id="specialite" name="specialite" required placeholder="Construction, Farm, Minage, Pêche, Dailys, etc.">
+                    <label for="specialite">9. 🧱 Quel est ton domaine de prédilection sur Hyping ?</label>
+                    <input type="text" id="specialite" name="specialite" required placeholder="(Exemples : construction, farm, minage, pêche, dailys...)">
 
-                    <label for="attentes">8. Que recherches-tu en rejoignant une OB comme la nôtre ?</label>
+                    <label for="attentes">10. 🎯 Qu'attends-tu en rejoignant une OB comme la nôtre ?</label>
                     <textarea id="attentes" name="attentes" rows="3" required placeholder="Tes attentes et motivations"></textarea>
 
-                    <label for="anecdote">9. Une anecdote fun ou originale sur toi ?</label>
+                    <label for="anecdote">11. 😄 Une anecdote fun ou originale sur toi (facultatif mais sympa !)</label>
                     <textarea id="anecdote" name="anecdote" rows="2" placeholder="Facultatif mais sympa à lire !"></textarea>
+
+                    <!-- Partie 2 - Évaluation & Intégration -->
+                    <div class="section-title">🧱 Partie 2 – Évaluation & Intégration</div>
+
+                    <label for="stuff">1. ⚔️ Décris ton stuff actuel</label>
+                    <textarea id="stuff" name="stuff" rows="3" required placeholder="Armure, outils, enchantements..."></textarea>
+
+                    <label for="prestige">2. 🏅 Quel est ton prestige actuel ?</label>
+                    <input type="text" id="prestige" name="prestige" required placeholder="(Exemple : Argent I, Or II...)">
+
+                    <label for="temps-jeu">3. ⏱️ Combien d'heures joues-tu environ par jour / semaine / week-end ?</label>
+                    <input type="text" id="temps-jeu" name="temps-jeu" required placeholder="Exemple : 2h/jour en semaine, 4h le week-end">
+
+                    <label for="attentes-ob">4. 🎯 As-tu des attentes précises envers l'OB ou son fonctionnement ?</label>
+                    <textarea id="attentes-ob" name="attentes-ob" rows="2" required placeholder="Tes attentes spécifiques"></textarea>
+
+                    <label for="age">5. 📅 Si tu es d'accord, quel est ton âge (approximatif) ?</label>
+                    <input type="text" id="age" name="age" placeholder="Facultatif">
+
+                    <label for="installation">6. 🏡 Quelles seraient tes modalités pour t'installer dans l'OB ?</label>
+                    <textarea id="installation" name="installation" rows="2" required placeholder="Ex : j'aimerais un espace d'au moins 20x20 blocs pour construire"></textarea>
+
+                    <label for="confiance">7. 🔒 Tu n'es pas encore très actif sur le serveur, donc : qu'est-ce qui nous prouve qu'on peut te faire confiance ?</label>
+                    <textarea id="confiance" name="confiance" rows="3" required placeholder="Explique pourquoi on peut te faire confiance"></textarea>
+
+                    <label for="teleportation">8. 💀 Tu ne risques pas de t'évanouir quand je te téléporte dans l'OB (elle est un peu en travaux mdr) ?</label>
+                    <select id="teleportation" name="teleportation" required>
+                        <option value="">-- Choisis une réponse --</option>
+                        <option value="Non, ça va aller !">Non, ça va aller !</option>
+                        <option value="Peut-être un peu... 😅">Peut-être un peu... 😅</option>
+                        <option value="J'ai confiance en votre construction !">J'ai confiance en votre construction !</option>
+                    </select>
 
                     <button type="button" id="submit-btn" class="discord-btn">Envoyer ma candidature</button>
                 </form>
@@ -359,50 +421,90 @@
                         color: 3899949, // Convertir 0x3b662d en décimal
                         fields: [
                             {
-                                name: "🎮 Pseudo Minecraft",
+                                name: "🌿 **PARTIE 1 – INFORMATIONS GÉNÉRALES**",
+                                value: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+                            },
+                            {
+                                name: "1. 🎮 Pseudo Minecraft",
                                 value: document.getElementById('pseudo-mc').value,
                                 inline: true
                             },
                             {
-                                name: "💬 Pseudo Discord",
+                                name: "2. 💬 Pseudo Discord",
                                 value: document.getElementById('pseudo-discord').value,
                                 inline: true
                             },
                             {
-                                name: "1️⃣ Connaissance du serveur Hyping",
+                                name: "3. 📊 Connaissance du serveur Hyping",
                                 value: document.getElementById('hyping').value + "/10"
                             },
                             {
-                                name: "2️⃣ Expérience avec les jeux Zelda",
+                                name: "4. 🗡️ Expérience avec les jeux Zelda",
                                 value: document.getElementById('zelda').value || "Non précisé"
                             },
                             {
-                                name: "3️⃣ Style de joueur",
+                                name: "5. 🎮 Style de joueur",
                                 value: document.getElementById('style').value
                             },
                             {
-                                name: "4️⃣ Auto-description",
+                                name: "6. 🧠 Auto-description",
                                 value: document.getElementById('description').value
                             },
                             {
-                                name: "5️⃣ Initiative",
+                                name: "7. 💡 Initiative",
                                 value: document.getElementById('initiative').value
                             },
                             {
-                                name: "6️⃣ Expérience en OB",
+                                name: "8. 🛡️ Expérience en OB",
                                 value: document.getElementById('ancien-ob').value || "Non précisé"
                             },
                             {
-                                name: "7️⃣ Domaine de prédilection",
+                                name: "9. 🧱 Domaine de prédilection",
                                 value: document.getElementById('specialite').value
                             },
                             {
-                                name: "8️⃣ Attentes",
+                                name: "10. 🎯 Attentes générales",
                                 value: document.getElementById('attentes').value
                             },
                             {
-                                name: "9️⃣ Anecdote",
+                                name: "11. 😄 Anecdote",
                                 value: document.getElementById('anecdote').value || "Non précisé"
+                            },
+                            {
+                                name: "🧱 **PARTIE 2 – ÉVALUATION & INTÉGRATION**",
+                                value: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+                            },
+                            {
+                                name: "1. ⚔️ Stuff actuel",
+                                value: document.getElementById('stuff').value
+                            },
+                            {
+                                name: "2. 🏅 Prestige actuel",
+                                value: document.getElementById('prestige').value
+                            },
+                            {
+                                name: "3. ⏱️ Temps de jeu",
+                                value: document.getElementById('temps-jeu').value
+                            },
+                            {
+                                name: "4. 🎯 Attentes envers l'OB",
+                                value: document.getElementById('attentes-ob').value
+                            },
+                            {
+                                name: "5. 📅 Âge",
+                                value: document.getElementById('age').value || "Non précisé"
+                            },
+                            {
+                                name: "6. 🏡 Modalités d'installation",
+                                value: document.getElementById('installation').value
+                            },
+                            {
+                                name: "7. 🔒 Preuves de confiance",
+                                value: document.getElementById('confiance').value
+                            },
+                            {
+                                name: "8. 💀 Réaction à la téléportation",
+                                value: document.getElementById('teleportation').value
                             }
                         ],
                         footer: {
@@ -424,7 +526,7 @@
                     if (response.ok) {
                         // Afficher un message de succès
                         statusMessage.className = 'success-message';
-                        statusMessage.innerHTML = '✅ Ta candidature a bien été envoyée ! On la lit et on te dis notre avis ^^';
+                        statusMessage.innerHTML = '✅ Ta candidature a bien été envoyée ! On la lit et on te dit notre avis ^^';
                         form.reset();
                         
                         // Faire défiler jusqu'au message de statut
@@ -456,7 +558,14 @@
                     'description', 
                     'initiative', 
                     'specialite', 
-                    'attentes'
+                    'attentes',
+                    'stuff',
+                    'prestige',
+                    'temps-jeu',
+                    'attentes-ob',
+                    'installation',
+                    'confiance',
+                    'teleportation'
                 ];
                 
                 let isValid = true;
