@@ -1,0 +1,6 @@
+# Redirection pour supprimer l'extension .html
+/recrutement/forms    /recrutement/forms.html    200
+
+# Autres redirections possibles
+/recrutement    /recrutement/    200
+/*    /index.html    404
