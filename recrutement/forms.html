@@ -117,41 +117,34 @@
             border-left: 4px solid var(--light-green);
         }
         
-        .form-part {
-            display: none;
-        }
-        
-        .form-part.active {
-            display: block;
-        }
-        
-        .progress-container {
-            background-color: rgba(30, 86, 49, 0.5);
+        .form-section {
+            background-color: var(--card-bg);
+            padding: 30px;
+            margin: 30px 0;
             border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid var(--light-green);
         }
         
-        .progress-bar {
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            height: 10px;
-            overflow: hidden;
-            margin: 10px 0;
+        .section-separator {
+            height: 40px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            margin: 40px 0;
+            border-radius: 2px;
+            position: relative;
         }
         
-        .progress-fill {
-            background: linear-gradient(90deg, var(--light-green), var(--accent-color));
-            height: 100%;
-            width: 50%;
-            transition: width 0.3s ease;
-        }
-        
-        .progress-text {
+        .section-separator::after {
+            content: '▼';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--card-bg);
             color: var(--accent-color);
-            font-weight: bold;
-            margin-bottom: 10px;
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-size: 1.2rem;
         }
         
         .section-title {
@@ -228,57 +221,16 @@
             outline: none;
         }
         
-        .navigation-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-            gap: 15px;
-        }
-        
-        .nav-btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            flex: 1;
-        }
-        
-        .prev-btn {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        .prev-btn:hover:not(.disabled) {
-            background-color: var(--secondary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-        }
-        
-        .next-btn {
-            background-color: var(--light-green);
-            color: white;
-        }
-        
-        .next-btn:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-        }
-        
         button.discord-btn {
             background-color: var(--discord-color);
             color: white;
-            padding: 12px 24px;
+            padding: 15px 30px;
             margin-top: 30px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             width: 100%;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -288,11 +240,6 @@
             background-color: #5e73bc;
             transform: translateY(-2px);
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-        }
-        
-        .disabled {
-            opacity: 0.5;
-            cursor: not-allowed !important;
         }
         
         .calendar-container {
@@ -383,26 +330,6 @@
             font-size: 0.9rem;
         }
         
-        .home-link {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        
-        .home-link:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-        }
-        
         footer {
             text-align: center;
             padding: 20px;
@@ -428,6 +355,10 @@
                 padding: 20px;
             }
             
+            .form-section {
+                padding: 20px;
+            }
+            
             header {
                 height: 200px;
             }
@@ -444,10 +375,6 @@
             .calendar-header {
                 font-size: 0.7rem;
                 padding: 6px 2px;
-            }
-            
-            .navigation-buttons {
-                flex-direction: column;
             }
         }
         
@@ -492,19 +419,12 @@
         </header>
 
         <div class="container">
-            <div class="progress-container">
-                <div class="progress-text" id="progress-text">Partie 1 sur 2</div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progress-fill"></div>
-                </div>
-            </div>
-
             <section class="section">
                 <h2>Formulaire de recrutement</h2>
                 <form id="recruitment-form">
                     
                     <!-- Partie 1 - Informations Générales -->
-                    <div class="form-part active" id="part1">
+                    <div class="form-section">
                         <div class="section-title">🌿 Partie 1 – Informations Générales</div>
                         
                         <label for="pseudo-mc">1. 🎮 Ton pseudo Minecraft</label>
@@ -544,15 +464,13 @@
 
                         <label for="anecdote">11. 😄 Une anecdote fun ou originale sur toi (facultatif mais sympa !)</label>
                         <textarea id="anecdote" name="anecdote" rows="2" placeholder="Facultatif mais sympa à lire !"></textarea>
-
-                        <div class="navigation-buttons">
-                            <button type="button" class="nav-btn prev-btn disabled" id="prev-btn">← Précédent</button>
-                            <button type="button" class="nav-btn next-btn" id="next-btn">Suivant →</button>
-                        </div>
                     </div>
 
+                    <!-- Séparateur visuel -->
+                    <div class="section-separator"></div>
+
                     <!-- Partie 2 - Évaluation & Intégration -->
-                    <div class="form-part" id="part2">
+                    <div class="form-section">
                         <div class="section-title">🧱 Partie 2 – Évaluation & Intégration</div>
 
                         <label for="stuff">1. ⚔️ Décris ton stuff actuel</label>
@@ -595,10 +513,7 @@
                             <option value="J'ai confiance en votre construction !">J'ai confiance en votre construction !</option>
                         </select>
 
-                        <div class="navigation-buttons">
-                            <button type="button" class="nav-btn prev-btn" id="prev-btn-2">← Précédent</button>
-                            <button type="button" id="submit-btn" class="discord-btn">Envoyer ma candidature</button>
-                        </div>
+                        <button type="button" id="submit-btn" class="discord-btn">Envoyer ma candidature</button>
                     </div>
                 </form>
                 
@@ -613,13 +528,11 @@
 
     <script>
         // Variables globales
-        let currentPart = 1;
         let selectedTimeSlots = new Set();
         
         // Attendre que le DOM soit complètement chargé
         document.addEventListener('DOMContentLoaded', function() {
             initializeCalendar();
-            initializeNavigation();
             initializeForm();
         });
         
@@ -727,3 +640,92 @@
             const ranges = [];
             let start = times[0];
             let end = times[0];
+            
+            for (let i = 1; i < times.length; i++) {
+                const current = times[i];
+                const prev = times[i - 1];
+                
+                // Vérifier si les heures sont consécutives (différence de 30 minutes)
+                const currentMinutes = timeToMinutes(current);
+                const prevMinutes = timeToMinutes(prev);
+                
+                if (currentMinutes - prevMinutes === 30) {
+                    end = current;
+                } else {
+                    // Ajouter la plage précédente
+                    if (start === end) {
+                        ranges.push(start);
+                    } else {
+                        ranges.push(`${start}-${end}`);
+                    }
+                    start = current;
+                    end = current;
+                }
+            }
+            
+            // Ajouter la dernière plage
+            if (start === end) {
+                ranges.push(start);
+            } else {
+                ranges.push(`${start}-${end}`);
+            }
+            
+            return ranges;
+        }
+        
+        // Convertir une heure en minutes
+        function timeToMinutes(timeStr) {
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            return hours * 60 + minutes;
+        }
+        
+        // Initialisation du formulaire
+        function initializeForm() {
+            const submitBtn = document.getElementById('submit-btn');
+            const form = document.getElementById('recruitment-form');
+            
+            submitBtn.addEventListener('click', function() {
+                // Vérifier que tous les champs requis sont remplis
+                const requiredFields = form.querySelectorAll('[required]');
+                let isValid = true;
+                
+                for (let field of requiredFields) {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.focus();
+                        field.style.borderColor = '#f44336';
+                        setTimeout(() => {
+                            field.style.borderColor = '';
+                        }, 3000);
+                        break;
+                    }
+                }
+                
+                if (!isValid) {
+                    showMessage('Veuillez remplir tous les champs obligatoires.', 'error');
+                    return;
+                }
+                
+                // Simulation d'envoi
+                showMessage('Envoi en cours...', 'loading');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Envoi en cours...';
+                
+                // Simuler un délai d'envoi
+                setTimeout(() => {
+                    showMessage('Candidature envoyée avec succès ! Nous te recontacterons bientôt.', 'success');
+                    submitBtn.textContent = 'Candidature envoyée !';
+                    form.style.opacity = '0.7';
+                }, 2000);
+            });
+        }
+        
+        // Afficher un message de statut
+        function showMessage(message, type) {
+            const statusDiv = document.getElementById('status-message');
+            statusDiv.style.display = 'block';
+            statusDiv.className = `${type}-message`;
+            statusDiv.textContent = message;
+            
+            // Faire défiler vers le message
+            statusDiv.scrollInto
