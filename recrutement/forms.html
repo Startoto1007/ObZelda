@@ -252,7 +252,7 @@
             color: white;
         }
         
-        .prev-btn:hover {
+        .prev-btn:hover:not(.disabled) {
             background-color: var(--secondary-color);
             transform: translateY(-2px);
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
@@ -727,6 +727,3 @@
             const ranges = [];
             let start = times[0];
             let end = times[0];
-            
-            for (let i = 1; i < times.length; i++) {
-                const currentTime = times[i];
